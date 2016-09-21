@@ -49,9 +49,27 @@ export default function (nga, admin) {
             
             .addChild(nga.menu(admin.getEntity('orders'))
                 .icon('<span class="fa fa-shopping-cart fa-fw""></span>'))
+            .addChild(nga.menu(admin.getEntity('orderItems'))
+                .icon('<span class="fa fa-shopping-cart fa-fw""></span>'))
             
             .addChild(nga.menu(admin.getEntity('payments'))
                 .icon('<span class="fa fa-credit-card fa-fw""></span>'))
         )
+
+        .addChild(nga.menu()
+            .title('Delivery')
+            .icon('<span class="fa fa-cubes fa-fw"></span>')
+            .active(path => path.indexOf('/deliveries') === 0)
+
+            .addChild(nga.menu(admin.getEntity('deliveryGroups'))
+                .icon('<span class="fa fa-cubes fa-fw""></span>'))
+
+            .addChild(nga.menu(admin.getEntity('deliveries'))
+                .icon('<span class="fa fa-cube fa-fw""></span>'))
+
+            .addChild(nga.menu(admin.getEntity('distributions'))
+                .icon('<span class="fa fa-truck fa-fw""></span>'))
+
+            )
     ;
 }

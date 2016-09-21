@@ -1,22 +1,39 @@
 export default function (nga, admin) {
+
+    var delivery_status_choices = [
+        {
+            "label": "canceled",
+            "value": 0
+        },
+        {
+            "label": "pending",
+            "value": 1
+        },
+        {
+            "label": "completed",
+            "value": 2
+        }
+    ];
+
+
+
     var deliveries = admin.getEntity('deliveries');
     deliveries.listView()
         .title('Deliveries')
         .fields([
-            /* nga.field('avatar', 'template')
-             .label('')
-             .template(entry => `<img src="${ entry.values.avatar }" width="25" style="margin-top:-5px" />`),*/
-            nga.field('username', 'text') // use last_name for sorting
-                .label('User name')
-                .isDetailLink(true),
-            nga.field('last_name', 'template') // use last_name for sorting
-                .label('Name')
-                .isDetailLink(true)
-                .template('{{ entry.values.first_name }} {{ entry.values.last_name }}'),
-            nga.field('email', 'text') // use last_name for sorting
-                .label('Email'),
-            nga.field('addresses', 'reference_many')
-                .targetEntity(nga.entity('addresses'))
+            nga.field('id'),
+            nga.field('quantity'),
+            nga.field('item', 'reference')
+                .targetEntity(nga.entity('orderItems'))
+                .targetField(nga.field('product_name'))
+                .singleApiCall(ids => ({'id': ids})),
+            nga.field('status', 'text'),
+            nga.field('distribution', 'reference')
+                .targetEntity(nga.entity('distributions'))
+                .targetField(nga.field('id'))
+                .singleApiCall(ids => ({'id': ids})),
+            nga.field('group', 'reference')
+                .targetEntity(nga.entity('deliveryGroups'))
                 .targetField(nga.field('id'))
                 .singleApiCall(ids => ({'id': ids }))
 
@@ -29,13 +46,43 @@ export default function (nga, admin) {
     ])
     .listActions(['edit', 'delete']);
     
-    deliveries.editionView()
-        .title('{{ entry.values.first_name }} {{ entry.values.last_name }}\'s details')
+    deliveries.creationView()
+        .title('Create a new Delivery')
         .fields([
-            nga.field('first_name'),
-            nga.field('last_name'),
-            nga.field('email', 'email')
-        ])
+            nga.field('group', 'reference')
+              .targetEntity(nga.entity('deliveryGroups').url('delivery-groups'))
+              .targetField(nga.field('id'))
+              .attributes({ placeholder: 'Select delivery group...' })
+              .remoteComplete(true, {
+                  refreshDelay: 300 ,
+                  searchQuery: search => ({ q: search })
+              }),
+            nga.field('item', 'reference')
+              .targetEntity(nga.entity('orderItems').url('order-items'))
+              .targetField(nga.field('product_name'))
+              .attributes({ placeholder: 'Select item...' })
+              .remoteComplete(true, {
+                  refreshDelay: 300 ,
+                  searchQuery: search => ({ q: search })
+              }),
+
+            nga.field('distribution', 'reference')
+              .targetEntity(nga.entity('distributions'))
+              .targetField(nga.field('id'))
+              .attributes({ placeholder: 'Select distribution...' })
+              .remoteComplete(true, {
+                  refreshDelay: 300 ,
+                  searchQuery: search => ({ q: search })
+              }),
+            nga.field('quantity', 'number'),
+            nga.field('status', 'choice').choices(delivery_status_choices)
+            ]);
+
+    deliveries.editionView()
+        .fields(
+            deliveries.creationView().fields(),
+            );
+
 
     return deliveries;
 }
