@@ -1,0 +1,21 @@
+<link href="css/login.css" rel="stylesheet" type="text/css" />
+<div class="main">
+    <div class="login-form">
+        <h1>Login Dashboard ERP</h1>
+        <div class="head">
+            <img src="images/user.png" alt=""/>
+        </div>
+        <form name="loginController.form"  ng-submit="loginController.login()">
+            <input type="text" class="text" id="username" placeholder="Username" ng-model="loginController.data.username" ng-required="true" ng-minlength="4">
+            <input type="password" id="password" placeholder="Password" ng-model="loginController.data.password" ng-required="true" ng-minlength="4" ng-enter="loginController.login()">
+            <div class="submit">
+                <input type="submit" value="Log In" >
+            </div>
+        </form>
+    </div>
+    <!-- start-copyright -->
+    <div class="copy-right">
+        <p>Echo por <a href="http://context.com.ar">Context Informatic</a></p>
+    </div>
+    <!-- end-copyright -->
+</div>
