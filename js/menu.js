@@ -52,6 +52,9 @@ export default function (nga, admin) {
             
             .addChild(nga.menu(admin.getEntity('payments'))
                 .icon('<span class="fa fa-credit-card fa-fw""></span>'))
+
         )
-    ;
+
+        .addChild(nga.menu()
+            .title('cart').link('/cart'))
 }

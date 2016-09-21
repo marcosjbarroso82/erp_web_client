@@ -1,0 +1,71 @@
+<div>
+    <h1>Cart</h1>
+    <hr/>
+    <!--<p>{{ vm.cart }}</p>-->
+    <!--<p>{{ vm.variants }}</p>-->
+
+    <!-- Alerts -->
+    <script type="text/ng-template" id="alert.html"><div ng-transclude></div></script>
+    <div uib-alert ng-repeat="alert in vm.alerts" ng-class="'alert-' + (alert.type || 'warning')" close="vm.closeAlert($index)">{{alert.msg}}</div>
+
+
+    <table class="grid table table-condensed table-hover table-striped">
+        <thead>
+        <th>SKU</th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Data</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+        <th>Action</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td></td>
+            <td>
+                <ui-select ng-model="vm.temp_extra_item">
+                    <ui-select-match>
+                        <span ng-bind="$select.selected.name"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="item in (vm.variants | filter: $select.search) track by item.id">
+                        <div>
+                        <span ng-bind-html="item.parent.name"></span>:
+                        <span ng-bind-html="item.name"></span>
+                        </div>
+                        <small><span ng-bind-html="item.sku"></span></small>
+                    </ui-select-choices>
+                </ui-select>
+            </td>
+
+
+            <!--<td><input type="text" ng:model="vm.extra_item.product" class="form-control"/></td>-->
+            <td><input type="number" ng:model="vm.extra_item.quantity" class="form-control"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>[<a href ng-click="vm.addItem()">add</a>]</td>
+        </tr>
+
+        <tr ng:repeat="item in vm.cart.items">
+            <td>{{ item.sku }}</td>
+            <td>{{ item.variant.parent.name }}: {{ item.variant.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.data }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.sub_total }}</td>
+            <td>[<a href ng-click="vm.removeItem($index)">X</a>]</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>TOTAL</td>
+            <td>{{ vm.cart.total }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>

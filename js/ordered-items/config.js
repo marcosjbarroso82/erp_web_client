@@ -11,6 +11,7 @@ export default function (nga, admin) {
         .fields([
             nga.field('id').editable(false),
             nga.field('product_name').editable(false),
+            nga.field('quantity')
         ]);
     orderedItems.editionView()
         .fields(orderedItems.creationView().fields());

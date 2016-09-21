@@ -1,6 +1,7 @@
 var myApp = angular.module('myApp', [
     'ng-admin',
     'ng-admin.jwt-auth',
+    'cart',
 ]);
 
 // custom API flavor
@@ -61,15 +62,14 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
 
 myApp.config(function ($stateProvider, $urlRouterProvider) {
 
-   /* $stateProvider.state('login', {
-        //parent: 'main',
-        url: '/login',
-        controller: 'LoginCtrl',
+   $stateProvider.state('cart', {
+        parent: 'main',
+        url: '/cart',
+//        params: { id: null },
+        controller: 'CartCtrl',
         controllerAs: 'vm',
-        templateUrl: function ($stateParams){
-            return '/login.html';
-        }
-    });*/
+        templateUrl: '/js/cart/templates/cart.html'
+    });
     $urlRouterProvider.otherwise('/login');
 });
 
