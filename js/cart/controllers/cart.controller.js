@@ -30,7 +30,7 @@
                 vm.cart = data['data'];
 
             }, function (data){
-                vm.alerts.push({type: 'danger', msg: 'Ha ocurrido un problema. Vuelve a cargar la página'});
+                notification.log('Ha ocurrido un problema. Vuelve a cargar la página', { addnCls: 'humane-flatty-error' });
             });
 
             Cart.get_variants().then(function (data){
@@ -38,13 +38,12 @@
                 vm.variants = data.data;
                 vm.selected = { value: vm.variants[0] };
             }, function (data){
-                vm.alerts.push({type: 'danger', msg: 'Ha ocurrido un problema. Vuelve a cargar la página'});
+                notification.log('Ha ocurrido un problema. Vuelve a cargar la página', { addnCls: 'humane-flatty-error' });
             });
 
             $scope.$watch('vm.temp_extra_item', function(){
                 vm.extra_item['product'] = vm.temp_extra_item['id'];
             });
-            notification.log('Some values are invalid, see details in the form', { addnCls: 'humane-flatty-error' });
         }
 
         vm.addItem = function(){
@@ -63,14 +62,13 @@
 
                     vm.cart['items'].forEach(function(item) {
                         if(item['msg'] != '') {
-//                            vm.alerts.push({msg: item['msg']});
-                            alert(item['msg']);
+                            vm.alerts.push({msg: item['msg']});
+                            notification.log(item['msg'], { addnCls: 'humane-flatty-error' });
                         }
                     });
 
                 }, function (data){
-//                    vm.alerts.push({type: 'danger', msg: 'No se ha podido agregar el producto!'});
-                    alert('No se ha podido agregar el producto!');
+                    notification.log('No se ha podido agregar el producto!', { addnCls: 'humane-flatty-error' });
                 });
             }
         }
@@ -85,7 +83,7 @@
                 vm.cart = data['data'];
                 vm.extra_item = {};
             }, function (data){
-                vm.alerts.push({type: 'danger', msg: 'No se ha podido borra el producto!'});
+                notification.log('No se ha podido borra el producto!', { addnCls: 'humane-flatty-error' });
             });
         }
 
