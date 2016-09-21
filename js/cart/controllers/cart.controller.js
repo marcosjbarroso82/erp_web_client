@@ -20,16 +20,15 @@
         vm.extra_item = {};
 
         // Initialize Controller
-//        activate();
+        activate();
 
 
         function activate(){
             console.log("CartCtrl activate");
-            vm.cart = Cart.get();
             vm.extra_item = {'quantity': 1};
-
             Cart.get().then(function (data){
                 vm.cart = data['data'];
+
             }, function (data){
                 vm.alerts.push({type: 'danger', msg: 'Ha ocurrido un problema. Vuelve a cargar la página'});
             });
@@ -64,12 +63,14 @@
 
                     vm.cart['items'].forEach(function(item) {
                         if(item['msg'] != '') {
-                            vm.alerts.push({msg: item['msg']});
+//                            vm.alerts.push({msg: item['msg']});
+                            alert(item['msg']);
                         }
                     });
 
                 }, function (data){
-                    vm.alerts.push({type: 'danger', msg: 'No se ha podido agregar el producto!'});
+//                    vm.alerts.push({type: 'danger', msg: 'No se ha podido agregar el producto!'});
+                    alert('No se ha podido agregar el producto!');
                 });
             }
         }

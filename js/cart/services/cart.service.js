@@ -54,7 +54,7 @@
             var token = window.localStorage.getItem('userToken');
             var req = {
              method: 'GET',
-             url: base_url + '/api/v1/products-variants',
+             url: base_url + '/api/v1/products',
              headers: {
                'Authorization': 'JWT ' + token
              }
