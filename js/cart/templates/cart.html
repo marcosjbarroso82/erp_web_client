@@ -41,7 +41,8 @@
 
         <tr ng:repeat="item in vm.cart.items">
             <td>{{ item.sku }}</td>
-            <td>{{ item.variant.parent.name }}: {{ item.variant.name }}</td>
+            <!--<td>{{ item.variant.parent.name }}: {{ item.variant.name }}</td>-->
+            <td>{{ item.variant.name }}</td>
             <td>{{ item.quantity }}</td>
             <td>{{ item.data }}</td>
             <td>{{ item.price }}</td>
