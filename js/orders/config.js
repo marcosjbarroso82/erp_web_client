@@ -27,7 +27,6 @@ export default function (nga, admin) {
     orders.listView()
         .fields([
             nga.field('id'),
-            nga.field('client'),
             nga.field('status'),
             nga.field('total'),
             nga.field('client', 'reference')
@@ -44,13 +43,28 @@ export default function (nga, admin) {
 
         .listActions(['edit']);
     
+    orders.creationView()
+        .fields([
+            nga.field('status', 'choice').choices(order_status_choices),
+            nga.field('total', 'float'),
+            nga.field('client', 'reference')
+              .targetEntity(nga.entity('clients'))
+              .targetField(nga.field('first_name'))
+              .attributes({ placeholder: 'Select client...' })
+              .remoteComplete(true, {
+                  refreshDelay: 300 ,
+                  searchQuery: search => ({ q: search })
+              }),
+            ])
+
+
     orders.editionView().actions(['show', 'list'])
         .fields([
             nga.field('status', 'choice').choices(order_status_choices),
             nga.field('client').editable(false),
             nga.field('total').editable(false),
         	nga.field('items', 'referenced_list').editable(false)
-                .targetEntity(admin.getEntity('orderedItems'))
+                .targetEntity(admin.getEntity('orderItems'))
                 .targetReferenceField('order')
                 .targetFields([
                   nga.field('product_name').label('Product'),

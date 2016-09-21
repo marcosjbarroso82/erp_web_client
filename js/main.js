@@ -33,8 +33,13 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
 
     // add entities
     admin.addEntity(nga.entity('addresses'));
-    admin.addEntity(nga.entity('orderedItems').url('order-items'));
+    admin.addEntity(nga.entity('orderItems').url('order-items'));
     admin.addEntity(nga.entity('orders'));
+
+    admin.addEntity(nga.entity('deliveries'));
+    admin.addEntity(nga.entity('deliveryGroups').url('delivery-groups'));
+    admin.addEntity(nga.entity('distributions'));
+
     admin.addEntity(nga.entity('clients'));
     admin.addEntity(nga.entity('employees'));
     admin.addEntity(nga.entity('providers'));
@@ -43,8 +48,13 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
 
     // configure entities
     require('./addresses/config')(nga, admin);
-    require('./ordered-items/config')(nga, admin);
+    require('./order-items/config')(nga, admin);
     require('./orders/config')(nga, admin);
+
+    require('./deliveries/config')(nga, admin);
+    require('./delivery_groups/config')(nga, admin);
+    require('./distributions/config')(nga, admin);
+
     require('./clients/config')(nga, admin);
     require('./employees/config')(nga, admin);
     require('./providers/config')(nga, admin);
