@@ -19,14 +19,19 @@ export default function (nga, admin) {
     clients.creationView()
         .title('Create a new Client')
         .fields([
-            nga.field('first_name')
+            nga.field('first_name'),
+            nga.field('address.street')
             ]);
 
     clients.editionView()
         .title('{{ entry.values.first_name }}\'s details')
         .fields([
-            nga.field('first_name')
-        ]);
+            nga.field('first_name'),
+            nga.field('address.street')
+
+        ])
+
+    ;
 
     return clients;
 }
