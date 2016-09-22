@@ -6,8 +6,9 @@ export default function (nga, admin) {
             nga.field('id'),
             nga.field('quantity'),
             nga.field('date'),
+            nga.field('note'),
             nga.field('stock', 'reference')
-                .targetEntity(nga.entity('productsStock').url('products-stock'))
+                .targetEntity(admin.getEntity('productsStock'))
                 .targetField(nga.field('id'))
                 .singleApiCall(ids => ({'id': ids }))
         ])
@@ -18,7 +19,7 @@ export default function (nga, admin) {
             .template('<div class="input-group"><input type="text" ng-model="value" placeholder="Search" class="form-control"></input><span class="input-group-addon"><i class="fa fa-search"></i></span></div>'),
         nga.field('stock', 'reference')
             .label('Stock')
-            .targetEntity(admin.getEntity('productsStock').url('products-stock'))
+            .targetEntity(admin.getEntity('productsStock'))
             .targetField(nga.field('id')),    
     ]);
     //.listActions(['edit', 'delete']);
@@ -29,7 +30,7 @@ export default function (nga, admin) {
             nga.field('quantity', 'number'),
             nga.field('date', 'datetime'),
             nga.field('stock', 'reference')
-              .targetEntity(nga.entity('productsStock').url('products-stock'))
+              .targetEntity(admin.getEntity('productsStock'))
               .targetField(nga.field('id'))
               .attributes({ placeholder: 'Select stock...' })
               .remoteComplete(true, {

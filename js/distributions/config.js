@@ -6,7 +6,7 @@ export default function (nga, admin) {
         .fields([
             nga.field('id'),
             nga.field('employee', 'reference')
-                .targetEntity(nga.entity('employees'))
+                .targetEntity(admin.getEntity('employees'))
                 .targetField(nga.field('first_name'))
                 .singleApiCall(ids => ({'id': ids})),
             nga.field('date')
@@ -25,7 +25,7 @@ export default function (nga, admin) {
         .fields([
             nga.field('date', 'datetime'),
             nga.field('employee', 'reference')
-              .targetEntity(nga.entity('employees'))
+              .targetEntity(admin.getEntity('employees'))
               .targetField(nga.field('first_name'))
               .attributes({ placeholder: 'Select employee...' })
               .remoteComplete(true, {

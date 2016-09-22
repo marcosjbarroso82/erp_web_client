@@ -6,7 +6,7 @@ export default function (nga, admin) {
             nga.field('id'),
             nga.field('quantity'),
             nga.field('item', 'reference')
-                .targetEntity(nga.entity('itemResources').url('item-resources'))
+                .targetEntity(admin.getEntity('itemResources'))
                 .targetField(nga.field('name'))
                 .singleApiCall(ids => ({'id': ids })),
         ])

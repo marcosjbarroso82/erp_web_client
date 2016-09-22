@@ -24,16 +24,16 @@ export default function (nga, admin) {
             nga.field('id'),
             nga.field('quantity'),
             nga.field('item', 'reference')
-                .targetEntity(nga.entity('orderItems'))
+                .targetEntity(admin.getEntity('orderItems'))
                 .targetField(nga.field('product_name'))
                 .singleApiCall(ids => ({'id': ids})),
             nga.field('status', 'text'),
             nga.field('distribution', 'reference')
-                .targetEntity(nga.entity('distributions'))
+                .targetEntity(admin.getEntity('distributions'))
                 .targetField(nga.field('id'))
                 .singleApiCall(ids => ({'id': ids})),
             nga.field('group', 'reference')
-                .targetEntity(nga.entity('deliveryGroups'))
+                .targetEntity(admin.getEntity('deliveryGroups'))
                 .targetField(nga.field('id'))
                 .singleApiCall(ids => ({'id': ids }))
 
@@ -50,7 +50,7 @@ export default function (nga, admin) {
         .title('Create a new Delivery')
         .fields([
             nga.field('group', 'reference')
-              .targetEntity(nga.entity('deliveryGroups').url('delivery-groups'))
+              .targetEntity(admin.getEntity('deliveryGroups'))
               .targetField(nga.field('id'))
               .attributes({ placeholder: 'Select delivery group...' })
               .remoteComplete(true, {
@@ -58,7 +58,7 @@ export default function (nga, admin) {
                   searchQuery: search => ({ q: search })
               }),
             nga.field('item', 'reference')
-              .targetEntity(nga.entity('orderItems').url('order-items'))
+              .targetEntity(admin.getEntity('orderItems'))
               .targetField(nga.field('product_name'))
               .attributes({ placeholder: 'Select item...' })
               .remoteComplete(true, {
@@ -67,7 +67,7 @@ export default function (nga, admin) {
               }),
 
             nga.field('distribution', 'reference')
-              .targetEntity(nga.entity('distributions'))
+              .targetEntity(admin.getEntity('distributions'))
               .targetField(nga.field('id'))
               .attributes({ placeholder: 'Select distribution...' })
               .remoteComplete(true, {

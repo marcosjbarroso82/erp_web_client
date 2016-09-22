@@ -28,7 +28,7 @@ export default function (nga, admin) {
             nga.field('date'),
             nga.field('type'),
             nga.field('orders', 'reference')
-                .targetEntity(nga.entity('orders'))
+                .targetEntity(admin.getEntity('orders'))
                 .targetField(nga.field('id'))
                 .singleApiCall(ids => ({'id': ids }))
         ])

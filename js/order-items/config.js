@@ -5,6 +5,11 @@ export default function (nga, admin) {
         .fields([
             nga.field('id'),
             nga.field('product_name'),
+            nga.field('order', 'reference')
+              .label('Order')
+              .targetEntity(admin.getEntity('orders'))
+              .targetField(nga.field('id'))
+              .singleApiCall(ids => ({'id': ids }))
         ])
         .listActions(['edit', 'delete']);
     orderItems.creationView()
@@ -14,7 +19,7 @@ export default function (nga, admin) {
             nga.field('price', 'float').editable(false),
             nga.field('quantity', 'number'),
             nga.field('product', 'reference')
-              .targetEntity(nga.entity('products'))
+              .targetEntity(admin.getEntity('products'))
               .targetField(nga.field('name'))
               .attributes({ placeholder: 'Select order...' })
               .remoteComplete(true, {
@@ -23,7 +28,7 @@ export default function (nga, admin) {
               }),
 
             nga.field('order', 'reference')
-              .targetEntity(nga.entity('orders'))
+              .targetEntity(admin.getEntity('orders'))
               .targetField(nga.field('id'))
               .attributes({ placeholder: 'Select order...' })
               .remoteComplete(true, {

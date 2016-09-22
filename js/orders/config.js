@@ -30,7 +30,7 @@ export default function (nga, admin) {
             nga.field('status'),
             nga.field('total'),
             nga.field('client', 'reference')
-                .targetEntity(nga.entity('clients'))
+                .targetEntity(admin.getEntity('clients'))
                 .targetField(nga.field('first_name'))
                 .singleApiCall(ids => ({'id': ids }))
         ]).filters([
@@ -41,21 +41,61 @@ export default function (nga, admin) {
             .targetField(nga.field('first_name'))
     ])
 
-        .listActions(['edit']);
+        .listActions(['edit', 'show']);
     
     orders.creationView()
         .fields([
             nga.field('status', 'choice').choices(order_status_choices),
             nga.field('total', 'float'),
             nga.field('client', 'reference')
-              .targetEntity(nga.entity('clients'))
+              .targetEntity(admin.getEntity('clients'))
               .targetField(nga.field('first_name'))
               .attributes({ placeholder: 'Select client...' })
               .remoteComplete(true, {
                   refreshDelay: 300 ,
                   searchQuery: search => ({ q: search })
               }),
+
+            nga.field('items', 'embedded_list')
+              .targetFields([ 
+                  nga.field('quantity', 'number'),
+                  nga.field('product', 'reference')
+                      .targetEntity(admin.getEntity('products'))
+                      .targetField(nga.field('name'))
+                      .attributes({ placeholder: 'Select order...' })
+                      .remoteComplete(true, {
+                          refreshDelay: 300 ,
+                          searchQuery: search => ({ q: search })
+                      }),
+
+              ])
+            
             ])
+
+    orders.showView().fields([
+        nga.field('id'),
+        nga.field('total'),
+      nga.field('items', 'referenced_list')
+          .targetEntity(admin.getEntity('orderItems'))
+          .targetReferenceField('order')
+          .targetFields([
+              nga.field('id'),
+              nga.field('quantity', 'number'),
+              nga.field('product', 'reference')
+                  .targetEntity(admin.getEntity('products'))
+                  .targetField(nga.field('name'))
+                  .attributes({ placeholder: 'Select product...' })
+                  .remoteComplete(true, {
+                      refreshDelay: 300 ,
+                      searchQuery: search => ({ q: search })
+                  }),
+          ])
+          .sortField('created_at')
+          .sortDir('DESC')
+          .listActions(['edit']),
+
+  ])
+
 
 
     orders.editionView().actions(['show', 'list'])
@@ -79,7 +119,21 @@ export default function (nga, admin) {
                   nga.field('id'),
                   nga.field('type'),
                   nga.field('amount'),
-              ]).singleApiCall(ids => ({'id': ids }))
+              ]).singleApiCall(ids => ({'id': ids })),
+
+            nga.field('items', 'embedded_list')
+              .targetFields([ 
+                  nga.field('quantity', 'number'),
+                  nga.field('product', 'reference')
+                      .targetEntity(admin.getEntity('products'))
+                      .targetField(nga.field('name'))
+                      .attributes({ placeholder: 'Select product...' })
+                      .remoteComplete(true, {
+                          refreshDelay: 300 ,
+                          searchQuery: search => ({ q: search })
+                      }),
+
+              ])
         ]);
 
     return orders;

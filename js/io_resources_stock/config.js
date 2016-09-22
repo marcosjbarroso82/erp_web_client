@@ -7,7 +7,7 @@ export default function (nga, admin) {
             nga.field('quantity'),
             nga.field('date'),
             nga.field('stock', 'reference')
-                .targetEntity(nga.entity('resourcesStock').url('resources-stock'))
+                .targetEntity(admin.getEntity('resourcesStock'))
                 .targetField(nga.field('id'))
                 .singleApiCall(ids => ({'id': ids }))
         ])
@@ -26,10 +26,10 @@ export default function (nga, admin) {
     IOResourcesStock.creationView()
         .title('Entry Resource stock')
         .fields([
-            nga.field('quantity', 'number'),
+            nga.field('quantity', 'number').defaultValue(1),
             nga.field('date', 'datetime'),
             nga.field('stock', 'reference')
-              .targetEntity(nga.entity('resourcesStock').url('resources-stock'))
+              .targetEntity(admin.getEntity('resourcesStock'))
               .targetField(nga.field('id'))
               .attributes({ placeholder: 'Select stock...' })
               .remoteComplete(true, {

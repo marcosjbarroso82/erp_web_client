@@ -6,7 +6,7 @@ export default function (nga, admin) {
             nga.field('id'),
             nga.field('quantity'),
             nga.field('item', 'reference')
-                .targetEntity(nga.entity('products'))
+                .targetEntity(admin.getEntity('products'))
                 .targetField(nga.field('name'))
                 .singleApiCall(ids => ({'id': ids }))
         ])
@@ -22,7 +22,34 @@ export default function (nga, admin) {
     ])
     .listActions([
         '<ma-filtered-list-button entity-name="IOProductsStock" filter="{ stock: entry.values.id }" size="xs" label="Details entries stock"></ma-filtered-list-button>',
+        'show'
         ]);
+
+    productsStock.showView()
+        .fields([
+                nga.field('id'),
+                nga.field('quantity'),
+                
+                nga.field('item', 'reference')
+                    .targetEntity(admin.getEntity('products'))
+                    .targetField(nga.field('name'))
+                    .singleApiCall(ids => ({'id': ids }))
+                    .editable(false),
+
+                
+                nga.field('io_products_stock', 'referenced_list') // display list of related comments
+                      .targetEntity(admin.getEntity('IOProductsStock'))
+                      .targetReferenceField('stock')
+                      .targetFields([
+                          nga.field('id'),
+                          nga.field('quantity'),
+                          nga.field('note')
+                      ])
+                      .sortField('created_at')
+                      .sortDir('DESC')
+                      .listActions(['edit']),
+
+            ])
 
     
     return productsStock;

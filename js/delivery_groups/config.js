@@ -22,11 +22,11 @@ export default function (nga, admin) {
         .fields([
             nga.field('id'),
              nga.field('address', 'reference')
-                .targetEntity(nga.entity('addresses'))
+                .targetEntity(admin.getEntity('addresses'))
                 .targetField(nga.field('street'))
                 .singleApiCall(ids => ({'id': ids})),
             nga.field('order', 'reference')
-                .targetEntity(nga.entity('orders'))
+                .targetEntity(admin.getEntity('orders'))
                 .targetField(nga.field('id'))
                 .singleApiCall(ids => ({'id': ids})),
             nga.field('status', 'text'),
@@ -44,7 +44,7 @@ export default function (nga, admin) {
         .title('Create a new Delivery Group')
         .fields([
             nga.field('order', 'reference')
-              .targetEntity(nga.entity('orders'))
+              .targetEntity(admin.getEntity('orders'))
               .targetField(nga.field('id'))
               .attributes({ placeholder: 'Select order...' })
               .remoteComplete(true, {
@@ -53,7 +53,7 @@ export default function (nga, admin) {
               }),
 
             nga.field('address', 'reference')
-              .targetEntity(nga.entity('addresses'))
+              .targetEntity(admin.getEntity('addresses'))
               .targetField(nga.field('street'))
               .attributes({ placeholder: 'Select address...' })
               .remoteComplete(true, {
