@@ -16,6 +16,10 @@ export default function (nga, admin) {
             .label('')
             .pinned(true)
             .template('<div class="input-group"><input type="text" ng-model="value" placeholder="Search" class="form-control"></input><span class="input-group-addon"><i class="fa fa-search"></i></span></div>'),
+        nga.field('stock', 'reference')
+            .label('Stock')
+            .targetEntity(admin.getEntity('productsStock').url('products-stock'))
+            .targetField(nga.field('id')),    
     ]);
     //.listActions(['edit', 'delete']);
 
@@ -32,10 +36,8 @@ export default function (nga, admin) {
                   refreshDelay: 300 ,
                   searchQuery: search => ({ q: search })
               }),
+            nga.field('note', 'text')
             ]);
-
-    //IOProductsStock.editionView()
-    //    .fields(IOProductsStock.creationView().fields());
 
     return IOProductsStock;
 }
