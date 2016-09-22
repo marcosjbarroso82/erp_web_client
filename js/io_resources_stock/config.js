@@ -1,13 +1,13 @@
 export default function (nga, admin) {
-    var IOProductsStock = admin.getEntity('IOProductsStock');
-    IOProductsStock.listView()
-        .title('Input output products stock')
+    var IOResourcesStock = admin.getEntity('IOResourcesStock');
+    IOResourcesStock.listView()
+        .title('Input output resources stock')
         .fields([
             nga.field('id'),
             nga.field('quantity'),
             nga.field('date'),
             nga.field('stock', 'reference')
-                .targetEntity(nga.entity('productsStock').url('products-stock'))
+                .targetEntity(nga.entity('resourcesStock').url('resources-stock'))
                 .targetField(nga.field('id'))
                 .singleApiCall(ids => ({'id': ids }))
         ])
@@ -19,13 +19,13 @@ export default function (nga, admin) {
     ]);
     //.listActions(['edit', 'delete']);
 
-    IOProductsStock.creationView()
-        .title('Entry Products stock')
+    IOResourcesStock.creationView()
+        .title('Entry Resource stock')
         .fields([
             nga.field('quantity', 'number'),
             nga.field('date', 'datetime'),
             nga.field('stock', 'reference')
-              .targetEntity(nga.entity('productsStock').url('products-stock'))
+              .targetEntity(nga.entity('resourcesStock').url('resources-stock'))
               .targetField(nga.field('id'))
               .attributes({ placeholder: 'Select stock...' })
               .remoteComplete(true, {
@@ -34,8 +34,8 @@ export default function (nga, admin) {
               }),
             ]);
 
-    //IOProductsStock.editionView()
-    //    .fields(IOProductsStock.creationView().fields());
+    //IOResourcesStock.editionView()
+    //    .fields(IOResourcesStock.creationView().fields());
 
-    return IOProductsStock;
+    return IOResourcesStock;
 }

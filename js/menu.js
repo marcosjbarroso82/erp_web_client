@@ -2,10 +2,32 @@ export default function (nga, admin) {
     return nga.menu()
 
         .addChild(nga.menu()
-            .title('Catalog')
+            .title('Products')
             .icon('<span class="fa fa-th-list fa-fw"></span>')
             .active(path => path.indexOf('/products') === 0)
+            
             .addChild(nga.menu(admin.getEntity('products'))
+                .icon('<span class="fa fa-picture-o fa-fw"></span>'))
+
+            .addChild(nga.menu(admin.getEntity('productsStock'))
+                .icon('<span class="fa fa-picture-o fa-fw"></span>'))
+
+            .addChild(nga.menu(admin.getEntity('IOProductsStock'))
+                .icon('<span class="fa fa-picture-o fa-fw"></span>'))
+        )
+
+        .addChild(nga.menu()
+            .title('Resources')
+            .icon('<span class="fa fa-th-list fa-fw"></span>')
+            .active(path => path.indexOf('/item-resources') === 0)
+            
+            .addChild(nga.menu(admin.getEntity('itemResources'))
+                .icon('<span class="fa fa-picture-o fa-fw"></span>'))
+
+            .addChild(nga.menu(admin.getEntity('resourcesStock'))
+                .icon('<span class="fa fa-picture-o fa-fw"></span>'))
+
+            .addChild(nga.menu(admin.getEntity('IOResourcesStock'))
                 .icon('<span class="fa fa-picture-o fa-fw"></span>'))
         )
 

@@ -1,32 +1,22 @@
 export default function (nga, admin) {
-    var clients = admin.getEntity('clients');
-    clients.listView()
-        .title('Clients')
+    var productsStock = admin.getEntity('productsStock');
+    productsStock.listView()
+        .title('Products stock')
         .fields([
             nga.field('id'),
-            nga.field('first_name')
-                .label('Name')
-
+            nga.field('quantity'),
+            nga.field('item', 'reference')
+                .targetEntity(nga.entity('products'))
+                .targetField(nga.field('name'))
+                .singleApiCall(ids => ({'id': ids }))
         ])
     .filters([
         nga.field('search', 'template')
             .label('')
             .pinned(true)
             .template('<div class="input-group"><input type="text" ng-model="value" placeholder="Search" class="form-control"></input><span class="input-group-addon"><i class="fa fa-search"></i></span></div>'),
-    ])
-    .listActions(['edit', 'delete']);
+    ]);
 
-    clients.creationView()
-        .title('Create a new Client')
-        .fields([
-            nga.field('first_name')
-            ]);
-
-    clients.editionView()
-        .title('{{ entry.values.first_name }}\'s details')
-        .fields([
-            nga.field('first_name')
-        ]);
-
-    return clients;
+    
+    return productsStock;
 }

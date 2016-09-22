@@ -1,32 +1,42 @@
-export default function (nga, admin) {
-    var clients = admin.getEntity('clients');
-    clients.listView()
-        .title('Clients')
-        .fields([
-            nga.field('id'),
-            nga.field('first_name')
-                .label('Name')
 
-        ])
-    .filters([
+export default function (nga, admin) {
+
+    var itemResources = admin.getEntity('itemResources')
+        .label('Resources ');
+    itemResources.listView()
+        .title('All Resources')
+        .fields([
+            nga.field('id', 'number'),
+            nga.field('name', 'text'),
+            nga.field('price', 'number'),
+        ]).filters([
         nga.field('search', 'template')
             .label('')
             .pinned(true)
             .template('<div class="input-group"><input type="text" ng-model="value" placeholder="Search" class="form-control"></input><span class="input-group-addon"><i class="fa fa-search"></i></span></div>'),
+        nga.field('price_gte', 'number')
+            .label('Min price'),
+        nga.field('priceh_lte', 'number')
+            .label('Max price'),
+        nga.field('stock_lte', 'template')
+            .label('Low stock')
+            .defaultValue(10)
     ])
-    .listActions(['edit', 'delete']);
-
-    clients.creationView()
-        .title('Create a new Client')
+        .listActions(['edit', 'delete'])
+    ;
+    itemResources.creationView()
+        .title('Create new Resources')
         .fields([
-            nga.field('first_name')
-            ]);
-
-    clients.editionView()
-        .title('{{ entry.values.first_name }}\'s details')
-        .fields([
-            nga.field('first_name')
+            nga.field('name')
+                .validation({required: true }),
+            nga.field('price', 'float').validation({required: true}),
+            nga.field('description', 'wysiwyg')
         ]);
 
-    return clients;
+    itemResources.editionView()
+        .fields(
+            itemResources.creationView().fields(),
+    );
+
+    return itemResources;
 }

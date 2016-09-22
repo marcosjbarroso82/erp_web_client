@@ -43,8 +43,16 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
     admin.addEntity(nga.entity('clients'));
     admin.addEntity(nga.entity('employees'));
     admin.addEntity(nga.entity('providers'));
+    
     admin.addEntity(nga.entity('products'));
+    admin.addEntity(nga.entity('productsStock').url('products-stock'));
+    admin.addEntity(nga.entity('IOProductsStock').url('io-products-stock'));
+
     admin.addEntity(nga.entity('payments'));
+
+    admin.addEntity(nga.entity('itemResources').url('item-resources'));
+    admin.addEntity(nga.entity('resourcesStock').url('resources-stock'));
+    admin.addEntity(nga.entity('IOResourcesStock').url('io-resources-stock'));
 
     // configure entities
     require('./addresses/config')(nga, admin);
@@ -58,8 +66,16 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
     require('./clients/config')(nga, admin);
     require('./employees/config')(nga, admin);
     require('./providers/config')(nga, admin);
+
     require('./products/config')(nga, admin);
+    require('./products_stock/config')(nga, admin);
+    require('./io_products_stock/config')(nga, admin);
+
     require('./payments/config')(nga, admin);
+    
+    require('./item_resources/config')(nga, admin);
+    require('./resources_stock/config')(nga, admin);
+    require('./io_resources_stock/config')(nga, admin);
 
     admin.dashboard(require('./dashboard/config')(nga, admin));
     admin.header(require('./header.html'));
