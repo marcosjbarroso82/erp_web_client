@@ -25,6 +25,9 @@ myApp.controller('username', ['$scope', '$window', function($scope, $window) { /
     $scope.username =  $window.localStorage.getItem('posters_galore_login');
 }]);
 
+function fix_url(url){
+
+}
 
 myApp.config(['NgAdminConfigurationProvider', function (nga) {
     // create the admin application
@@ -33,11 +36,17 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
 
     // add entities
     admin.addEntity(nga.entity('addresses'));
-    admin.addEntity(nga.entity('orderItems').url('order-items'));
+    admin.addEntity(nga.entity('orderItems').url(function(entityName, viewType, identifierValue, identifierName) {
+        var url = 'order-items';
+        return (identifierValue != undefined) ? url + '/' + identifierValue : url;
+    }));
     admin.addEntity(nga.entity('orders'));
 
     admin.addEntity(nga.entity('deliveries'));
-    admin.addEntity(nga.entity('deliveryGroups').url('delivery-groups'));
+    admin.addEntity(nga.entity('deliveryGroups').url(function(entityName, viewType, identifierValue, identifierName) {
+        var url = 'delivery-groups';
+        return (identifierValue != undefined) ? url + '/' + identifierValue : url;
+    }));
     admin.addEntity(nga.entity('distributions'));
 
     admin.addEntity(nga.entity('clients'));
@@ -45,14 +54,29 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
     admin.addEntity(nga.entity('providers'));
     
     admin.addEntity(nga.entity('products'));
-    admin.addEntity(nga.entity('productsStock').url('products-stock'));
-    admin.addEntity(nga.entity('IOProductsStock').url('io-products-stock'));
+    admin.addEntity(nga.entity('productsStock').url(function(entityName, viewType, identifierValue, identifierName) {
+        var url = 'products-stock';
+        return (identifierValue != undefined) ? url + '/' + identifierValue : url;
+    }));
+    admin.addEntity(nga.entity('IOProductsStock').url(function(entityName, viewType, identifierValue, identifierName) {
+        var url = 'io-products-stock';
+        return (identifierValue != undefined) ? url + '/' + identifierValue : url;
+    }));
 
     admin.addEntity(nga.entity('payments'));
 
-    admin.addEntity(nga.entity('itemResources').url('item-resources'));
-    admin.addEntity(nga.entity('resourcesStock').url('resources-stock'));
-    admin.addEntity(nga.entity('IOResourcesStock').url('io-resources-stock'));
+    admin.addEntity(nga.entity('itemResources').url(function(entityName, viewType, identifierValue, identifierName) {
+        var url = 'item-resources';
+        return (identifierValue != undefined) ? url + '/' + identifierValue : url;
+    }));
+    admin.addEntity(nga.entity('resourcesStock').url(function(entityName, viewType, identifierValue, identifierName) {
+        var url = 'resources-stock';
+        return (identifierValue != undefined) ? url + '/' + identifierValue : url;
+    }));
+    admin.addEntity(nga.entity('IOResourcesStock').url(function(entityName, viewType, identifierValue, identifierName) {
+        var url = 'io-resources-stock';
+        return (identifierValue != undefined) ? url + '/' + identifierValue : url;
+    }));
 
     // configure entities
     require('./addresses/config')(nga, admin);
