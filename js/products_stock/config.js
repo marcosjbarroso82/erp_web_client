@@ -47,7 +47,15 @@ export default function (nga, admin) {
                       ])
                       .sortField('created_at')
                       .sortDir('DESC')
-                      .listActions(['edit']),
+                      .listActions(['edit', 'delete', 'create'])
+                    .template('<ma-referenced-list-column field="::field" datastore="::datastore"></ma-referenced-list-column><button>boton extra</button>')
+
+//                nga.field('io_products_stock', 'embedded_list') // Define a 1-N relationship with the (embedded) comment entity
+//                    .targetEntity(admin.getEntity('IOProductsStock'))
+//                    .targetReferenceField('stock')
+//                    .targetFields([ // which comment fields to display in the datagrid / form
+//                          nga.field('quantity')
+//                    ])
 
             ])
 

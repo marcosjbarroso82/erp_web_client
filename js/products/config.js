@@ -27,8 +27,8 @@ export default function (nga, admin) {
     products.creationView()
         .title('Create new Product')
         .fields([
-            nga.field('name')
-                .validation({required: true }),
+            nga.field('name').validation({required: true }),
+            nga.field('sku').validation({required: true }),
             nga.field('price', 'float').validation({required: true}),
             nga.field('description', 'wysiwyg')
         ]);
