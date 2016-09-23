@@ -26,7 +26,7 @@ export default function (nga, admin) {
     IOResourcesStock.creationView()
         .title('Entry Resource stock')
         .fields([
-            nga.field('quantity', 'number').defaultValue(1),
+            nga.field('quantity', 'number'),
             nga.field('date', 'datetime'),
             nga.field('stock', 'reference')
               .targetEntity(admin.getEntity('resourcesStock'))

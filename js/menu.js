@@ -12,8 +12,8 @@ export default function (nga, admin) {
             .addChild(nga.menu(admin.getEntity('productsStock'))
                 .icon('<span class="fa fa-picture-o fa-fw"></span>'))
 
-            .addChild(nga.menu(admin.getEntity('IOProductsStock'))
-                .icon('<span class="fa fa-picture-o fa-fw"></span>'))
+            //.addChild(nga.menu(admin.getEntity('IOProductsStock'))
+            //    .icon('<span class="fa fa-picture-o fa-fw"></span>'))
         )
 
         .addChild(nga.menu()
@@ -27,8 +27,8 @@ export default function (nga, admin) {
             .addChild(nga.menu(admin.getEntity('resourcesStock'))
                 .icon('<span class="fa fa-picture-o fa-fw"></span>'))
 
-            .addChild(nga.menu(admin.getEntity('IOResourcesStock'))
-                .icon('<span class="fa fa-picture-o fa-fw"></span>'))
+            //.addChild(nga.menu(admin.getEntity('IOResourcesStock'))
+            //    .icon('<span class="fa fa-picture-o fa-fw"></span>'))
         )
 
         .addChild(nga.menu()

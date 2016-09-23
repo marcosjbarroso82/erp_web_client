@@ -103,24 +103,7 @@ export default function (nga, admin) {
             nga.field('status', 'choice').choices(order_status_choices),
             nga.field('client').editable(false),
             nga.field('total').editable(false),
-        	nga.field('items', 'referenced_list').editable(false)
-                .targetEntity(admin.getEntity('orderItems'))
-                .targetReferenceField('order')
-                .targetFields([
-                  nga.field('product_name').label('Product'),
-                  nga.field('quantity'),
-                  nga.field('price'),
-              ]).singleApiCall(ids => ({'id': ids })),
-
-            nga.field('payments', 'referenced_list').editable(false)
-                .targetEntity(admin.getEntity('payments'))
-                .targetReferenceField('order')
-                .targetFields([
-                  nga.field('id'),
-                  nga.field('type'),
-                  nga.field('amount'),
-              ]).singleApiCall(ids => ({'id': ids })),
-
+       
             nga.field('items', 'embedded_list')
               .targetFields([ 
                   nga.field('quantity', 'number'),
@@ -132,6 +115,17 @@ export default function (nga, admin) {
                           refreshDelay: 300 ,
                           searchQuery: search => ({ q: search })
                       }),
+                      
+            nga.field('payments', 'referenced_list').editable(false)
+                .targetEntity(admin.getEntity('payments'))
+                .targetReferenceField('order')
+                .targetFields([
+                  nga.field('id'),
+                  nga.field('type'),
+                  nga.field('amount'),
+              ]).singleApiCall(ids => ({'id': ids })),
+
+            
 
               ])
         ]);
