@@ -28,7 +28,7 @@ export default function (nga, admin) {
         .fields([
             nga.field('id'),
             nga.field('status'),
-            nga.field('total'),
+            nga.field('total', 'amount'),
             nga.field('client', 'reference')
                 .targetEntity(admin.getEntity('clients'))
                 .targetField(nga.field('first_name'))
@@ -74,7 +74,11 @@ export default function (nga, admin) {
 
     orders.showView().fields([
         nga.field('id'),
-        nga.field('total'),
+        nga.field('total', 'amount'),
+        nga.field('client', 'reference')
+                .targetEntity(admin.getEntity('clients'))
+                .targetField(nga.field('first_name'))
+                .singleApiCall(ids => ({'id': ids })),
       nga.field('items', 'referenced_list')
           .targetEntity(admin.getEntity('orderItems'))
           .targetReferenceField('order')
@@ -101,9 +105,14 @@ export default function (nga, admin) {
     orders.editionView().actions(['show', 'list'])
         .fields([
             nga.field('status', 'choice').choices(order_status_choices),
-            nga.field('client').editable(false),
-            nga.field('total').editable(false),
-       
+            nga.field('client', 'reference')
+                .editable(false)
+                .targetEntity(admin.getEntity('clients'))
+                .targetField(nga.field('first_name'))
+                .singleApiCall(ids => ({'id': ids })),
+
+            nga.field('total', 'amount').editable(false),
+
             nga.field('items', 'referenced_list').editable(false)
                 .targetEntity(admin.getEntity('orderItems'))
                 .targetReferenceField('order')
@@ -113,7 +122,7 @@ export default function (nga, admin) {
                   nga.field('quantity'),
                   nga.field('price'),
               ]).singleApiCall(ids => ({'id': ids })),
-
+ 
             nga.field('payments', 'referenced_list').editable(false)
                 .targetEntity(admin.getEntity('payments'))
                 .targetReferenceField('order')

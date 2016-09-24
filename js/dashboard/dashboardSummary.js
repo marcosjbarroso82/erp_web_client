@@ -18,19 +18,19 @@ function dashboardSummary(Restangular) {
             };
             Restangular
                 .all('products')
-                .getList({range: '[1,100]', filter: '{stock_lte: 18}'})
+                .getList({stock_lte: 10})
                 .then(products => {
                     $scope.stats.products_low_stock = products.data.reduce(nb => ++nb, 0)
                 });
             Restangular
-                .all('clients')
-                .getList()
-                .then(clients => {
-                   $scope.stats.users = clients.data.reduce(nb => ++nb, 0)
+                .all('item-resources')
+                .getList({stock_lte: 10})
+                .then(resources => {
+                   $scope.stats.resources_low_stock = resources.data.reduce(nb => ++nb, 0)
                 });
             Restangular
                 .all('orders')
-                .getList({range: '[1,100]', filter: '{"status":"payment-pending"}'})
+                .getList({status: 1 })
                 .then(orders => {
                     $scope.stats.pending_orders = orders.data.reduce(nb => ++nb, 0)
                 });

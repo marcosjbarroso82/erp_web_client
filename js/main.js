@@ -1,7 +1,9 @@
+var endpoint = 'http://127.0.0.1:8000/api/v1/';
+
 var myApp = angular.module('myApp', [
     'ng-admin',
     'ng-admin.jwt-auth',
-    'cart',
+    //'cart',
 ]);
 
 // custom API flavor
@@ -32,7 +34,7 @@ function fix_url(url){
 myApp.config(['NgAdminConfigurationProvider', function (nga) {
     // create the admin application
     var admin = nga.application('ERP')
-        .baseApiUrl('http://127.0.0.1:8000/api/v1/');
+        .baseApiUrl(endpoint);
 
     // add entities
     admin.addEntity(nga.entity('addresses'));
