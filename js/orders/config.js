@@ -104,18 +104,16 @@ export default function (nga, admin) {
             nga.field('client').editable(false),
             nga.field('total').editable(false),
        
-            nga.field('items', 'embedded_list')
-              .targetFields([ 
-                  nga.field('quantity', 'number'),
-                  nga.field('product', 'reference')
-                      .targetEntity(admin.getEntity('products'))
-                      .targetField(nga.field('name'))
-                      .attributes({ placeholder: 'Select product...' })
-                      .remoteComplete(true, {
-                          refreshDelay: 300 ,
-                          searchQuery: search => ({ q: search })
-                      }),
-                      
+            nga.field('items', 'referenced_list').editable(false)
+                .targetEntity(admin.getEntity('orderItems'))
+                .targetReferenceField('order')
+                .targetFields([
+                  nga.field('id'),
+                  nga.field('product_name'),
+                  nga.field('quantity'),
+                  nga.field('price'),
+              ]).singleApiCall(ids => ({'id': ids })),
+
             nga.field('payments', 'referenced_list').editable(false)
                 .targetEntity(admin.getEntity('payments'))
                 .targetReferenceField('order')
@@ -125,9 +123,6 @@ export default function (nga, admin) {
                   nga.field('amount'),
               ]).singleApiCall(ids => ({'id': ids })),
 
-            
-
-              ])
         ]);
 
     return orders;
