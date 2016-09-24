@@ -50,7 +50,7 @@ export default function (nga, admin) {
             <dashboard-summary></dashboard-summary>
         <div class="row dashboard-content">
         <div class="col-lg-6">
-            <div class="panel panel-primary">
+            <div class="panel panel-default">
                 <ma-dashboard-panel collection="dashboardController.collections.products_low_stock" entries="dashboardController.entries.products_low_stock" datastore="dashboardController.datastore"></ma-dashboard-panel>
             </div>
             <div class="panel panel-yellow">

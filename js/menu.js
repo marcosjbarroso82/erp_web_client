@@ -3,14 +3,14 @@ export default function (nga, admin) {
 
         .addChild(nga.menu()
             .title('Products')
-            .icon('<span class="fa fa-th-list fa-fw"></span>')
+            .icon('<span class="fa fa-product-hunt fa-fw"></span>')
             .active(path => path.indexOf('/products') === 0)
             
             .addChild(nga.menu(admin.getEntity('products'))
-                .icon('<span class="fa fa-picture-o fa-fw"></span>'))
+                .icon('<span class="fa fa-product-hunt fa-fw"></span>'))
 
             .addChild(nga.menu(admin.getEntity('productsStock'))
-                .icon('<span class="fa fa-picture-o fa-fw"></span>'))
+                .icon('<span class="fa fa-th-list fa-fw"></span>'))
 
             //.addChild(nga.menu(admin.getEntity('IOProductsStock'))
             //    .icon('<span class="fa fa-picture-o fa-fw"></span>'))
@@ -18,14 +18,14 @@ export default function (nga, admin) {
 
         .addChild(nga.menu()
             .title('Resources')
-            .icon('<span class="fa fa-th-list fa-fw"></span>')
+            .icon('<span class="fa fa-stack-overflow fa-fw"></span>')
             .active(path => path.indexOf('/item-resources') === 0)
             
             .addChild(nga.menu(admin.getEntity('itemResources'))
-                .icon('<span class="fa fa-picture-o fa-fw"></span>'))
+                .icon('<span class="fa fa-stack-overflow fa-fw"></span>'))
 
             .addChild(nga.menu(admin.getEntity('resourcesStock'))
-                .icon('<span class="fa fa-picture-o fa-fw"></span>'))
+                .icon('<span class="fa fa-th-list fa-fw"></span>'))
 
             //.addChild(nga.menu(admin.getEntity('IOResourcesStock'))
             //    .icon('<span class="fa fa-picture-o fa-fw"></span>'))
@@ -48,7 +48,7 @@ export default function (nga, admin) {
             
             .addChild(nga.menu(admin.getEntity('clients'))
                 .title('Clients')
-                .icon('<span class="fa fa-user fa-fw"></span>')
+                .icon('<span class="fa fa-user-secret fa-fw"></span>')
                 )
 
             .addChild(nga.menu(admin.getEntity('employees'))
@@ -70,12 +70,12 @@ export default function (nga, admin) {
             .active(path => path.indexOf('/orders') === 0)
             
             .addChild(nga.menu(admin.getEntity('orders'))
-                .icon('<span class="fa fa-shopping-cart fa-fw""></span>'))
-            .addChild(nga.menu(admin.getEntity('orderItems'))
-                .icon('<span class="fa fa-shopping-cart fa-fw""></span>'))
+                .icon('<span class="fa fa-shopping-basket fa-fw""></span>'))
+            //.addChild(nga.menu(admin.getEntity('orderItems'))
+            //    .icon('<span class="fa fa-shopping-cart fa-fw""></span>'))
             
             .addChild(nga.menu(admin.getEntity('payments'))
-                .icon('<span class="fa fa-credit-card fa-fw""></span>'))
+                .icon('<span class="fa fa-money fa-fw""></span>'))
 
         )
         //.addChild(nga.menu()
