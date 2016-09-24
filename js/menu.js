@@ -78,8 +78,8 @@ export default function (nga, admin) {
                 .icon('<span class="fa fa-credit-card fa-fw""></span>'))
 
         )
-        .addChild(nga.menu()
-            .title('cart').link('/cart'))
+        //.addChild(nga.menu()
+        //    .title('cart').link('/cart'))
         .addChild(nga.menu()
             .title('Delivery')
             .icon('<span class="fa fa-cubes fa-fw"></span>')

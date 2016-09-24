@@ -8,18 +8,18 @@ export default function (nga, admin) {
         .fields([
             nga.field('id', 'number'),
             nga.field('name', 'text'),
-            nga.field('price', 'number'),
+            nga.field('price', 'amount'),
         ]).filters([
         nga.field('search', 'template')
             .label('')
             .pinned(true)
             .template('<div class="input-group"><input type="text" ng-model="value" placeholder="Search" class="form-control"></input><span class="input-group-addon"><i class="fa fa-search"></i></span></div>'),
-        nga.field('price_gte', 'number')
-            .label('Min price'),
-        nga.field('priceh_lte', 'number')
-            .label('Max price'),
-        nga.field('stock_lte', 'template')
-            .label('Low stock')
+        nga.field('price_gte', 'float')
+            .label('Precio menor a'),
+        nga.field('price_lte', 'float')
+            .label('Precio mayor a'),
+        nga.field('stock_lte', 'number')
+            .label('Stock menor a')
             .defaultValue(10)
     ])
         .listActions(['edit', 'delete'])
