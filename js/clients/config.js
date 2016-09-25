@@ -27,11 +27,14 @@ export default function (nga, admin) {
         .title('{{ entry.values.first_name }}\'s details')
         .fields([
             nga.field('first_name'),
-            nga.field('address.street')
-
-        ])
-
-    ;
+            nga.field('address.street'),
+            nga.field('balance', 'reference')
+              .isDetailLink(true).editable(false)
+              .label('Balance')
+              .targetEntity(admin.getEntity('balances'))
+              .targetField(nga.field('id'))
+              .singleApiCall(ids => ({'id': ids }))
+        ]);
 
     return clients;
 }

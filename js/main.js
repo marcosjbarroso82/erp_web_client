@@ -38,6 +38,8 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
 
     // add entities
     admin.addEntity(nga.entity('addresses'));
+    admin.addEntity(nga.entity('tickets'));
+    admin.addEntity(nga.entity('balances'));
     admin.addEntity(nga.entity('orderItems').url(function(entityName, viewType, identifierValue, identifierName) {
         var url = 'order-items';
         return (identifierValue != undefined) ? url + '/' + identifierValue : url;
@@ -98,7 +100,9 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
     require('./io_products_stock/config')(nga, admin);
 
     require('./payments/config')(nga, admin);
-    
+    require('./tickets/config')(nga, admin);
+    require('./balances/config')(nga, admin);
+
     require('./item_resources/config')(nga, admin);
     require('./resources_stock/config')(nga, admin);
     require('./io_resources_stock/config')(nga, admin);
