@@ -36,7 +36,16 @@ export default function (nga, admin) {
 
     distributions.editionView()
         .fields(
-            distributions.creationView().fields()
+            distributions.creationView().fields(),
+
+            nga.field('deliveryGroups', 'reference_many')
+              .targetEntity(admin.getEntity('deliveryGroups'))
+              .targetField(nga.field('id'))
+              .attributes({ placeholder: 'Select some groups of items for delivery...' })
+              .remoteComplete(true, {
+                  refreshDelay: 300 ,
+                  searchQuery: search => ({ q: search })
+              })
             );
 
     return distributions;

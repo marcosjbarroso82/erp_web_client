@@ -66,7 +66,33 @@ export default function (nga, admin) {
 
     delivery_groups.editionView()
         .fields(
-            delivery_groups.creationView().fields(),
+            nga.field('order', 'reference').editable(false)
+              .targetEntity(admin.getEntity('orders'))
+              .targetField(nga.field('id'))
+              .attributes({ placeholder: 'Select order...' })
+              .remoteComplete(true, {
+                  refreshDelay: 300 ,
+                  searchQuery: search => ({ q: search })
+              }),
+            nga.field('address', 'reference')
+              .targetEntity(admin.getEntity('addresses'))
+              .targetField(nga.field('street'))
+              .attributes({ placeholder: 'Select address...' })
+              .remoteComplete(true, {
+                  refreshDelay: 300 ,
+                  searchQuery: search => ({ q: search })
+              }),
+
+            nga.field('status', 'choice').choices(delivery_status_choices),
+
+            nga.field('deliveries', 'reference_many')
+              .targetEntity(admin.getEntity('deliveries'))
+              .targetField(nga.field('id'))
+              .attributes({ placeholder: 'Select some groups of items for delivery...' })
+              .remoteComplete(true, {
+                  refreshDelay: 300 ,
+                  searchQuery: search => ({ q: search })
+              })
         );
 
     return delivery_groups;
