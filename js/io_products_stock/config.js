@@ -1,7 +1,8 @@
 export default function (nga, admin) {
     var IOProductsStock = admin.getEntity('IOProductsStock');
     IOProductsStock.listView()
-        .title('Detalles de Stocks de productos')
+        .title('Movimiento de stock de productos')
+        .description('Detalles de ingresos y/o egresos de productos')
         .fields([
             nga.field('id'),
             nga.field('quantity')

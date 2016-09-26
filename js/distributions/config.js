@@ -2,10 +2,11 @@ export default function (nga, admin) {
     var distributions = admin.getEntity('distributions');
     
     distributions.listView()
-        .title('Clients')
+        .title('Repartos')
         .fields([
             nga.field('id'),
             nga.field('employee', 'reference')
+              .label('Empleado')
                 .targetEntity(admin.getEntity('employees'))
                 .targetField(nga.field('first_name'))
                 .singleApiCall(ids => ({'id': ids})),
@@ -16,18 +17,20 @@ export default function (nga, admin) {
         nga.field('search', 'template')
             .label('')
             .pinned(true)
-            .template('<div class="input-group"><input type="text" ng-model="value" placeholder="Search" class="form-control"></input><span class="input-group-addon"><i class="fa fa-search"></i></span></div>'),
+            .template('<div class="input-group"><input type="text" ng-model="value" placeholder="Buscar" class="form-control"></input><span class="input-group-addon"><i class="fa fa-search"></i></span></div>'),
     ])
     .listActions(['edit', 'delete']);
 
     distributions.creationView()
-        .title('Create a new Distribution')
+        .title('Create nuevo reparto')
         .fields([
-            nga.field('date', 'datetime'),
+            nga.field('date', 'datetime')
+              .label('Fecha'),
             nga.field('employee', 'reference')
+              .label('Empleado')
               .targetEntity(admin.getEntity('employees'))
               .targetField(nga.field('first_name'))
-              .attributes({ placeholder: 'Select employee...' })
+              .attributes({ placeholder: 'Selecciona un empleado' })
               .remoteComplete(true, {
                   refreshDelay: 300 ,
                   searchQuery: search => ({ q: search })
@@ -39,9 +42,10 @@ export default function (nga, admin) {
             distributions.creationView().fields(),
 
             nga.field('deliveryGroups', 'reference_many')
+              .label('Entregas')
               .targetEntity(admin.getEntity('deliveryGroups'))
               .targetField(nga.field('id'))
-              .attributes({ placeholder: 'Select some groups of items for delivery...' })
+              .attributes({ placeholder: 'Selecciona todas las entregas que se realizan en este reparto.' })
               .remoteComplete(true, {
                   refreshDelay: 300 ,
                   searchQuery: search => ({ q: search })
