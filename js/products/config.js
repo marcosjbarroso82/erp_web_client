@@ -35,7 +35,10 @@ export default function (nga, admin) {
             nga.field('sku')
                 .label('SKU')
                 .validation({required: true }),
-            nga.field('price', 'amount')
+            nga.field('price', 'float')
+                .format(function(value){
+                    return Decimal(value);
+                })
                 .label('Precio')
                 .validation({required: true}),
             nga.field('description', 'wysiwyg')

@@ -71,7 +71,7 @@ export default function (nga, admin) {
               ])
             
             ])
-
+/*
     orders.showView().fields([
         nga.field('id'),
         nga.field('total', 'amount'),
@@ -98,7 +98,7 @@ export default function (nga, admin) {
           .sortDir('DESC')
           .listActions(['edit']),
 
-  ])
+  ])*/
 
 
 

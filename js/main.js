@@ -184,7 +184,7 @@ myApp.config(['$translateProvider', function ($translateProvider) {
       'PREVIOUS': '« Anterior',
       'NEXT': 'Siguiente »',
       'DETAIL': 'Detalle',
-      'STATE_CHANGE_ERROR': 'Error de rutas: {{ message }}',
+      'STATE_CHANGE_ERROR': 'Error de servidor: {{ message }}',
       'NOT_FOUND': 'Página no encontrada',
       'NOT_FOUND_DETAILS': 'La página solicitada no existe. Volver a la página anterior y probar algo diferente.',
     });
