@@ -5,7 +5,8 @@ export default function (nga, admin) {
         .title('Tickets')
         .fields([
             nga.field('id'),
-            nga.field('type'),
+            nga.field('type')
+                .label('Tipo'),
             nga.field('actor_type'),
             nga.field('actor_id'),
             nga.field('status'),

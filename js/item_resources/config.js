@@ -39,6 +39,7 @@ export default function (nga, admin) {
         ]);
 
     itemResources.editionView()
+        .title('Editar {{ entry.values.name }}')
         .fields(
             itemResources.creationView().fields(),
     );

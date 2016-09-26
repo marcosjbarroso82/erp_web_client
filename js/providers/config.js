@@ -1,32 +1,31 @@
 export default function (nga, admin) {
     var providers = admin.getEntity('providers');
     providers.listView()
-        .title('Providers')
+        .title('Proveedores')
         .fields([
             nga.field('id'),
             nga.field('name')
-                .label('Name')
+                .label('Nombre')
 
         ])
     .filters([
         nga.field('search', 'template')
             .label('')
             .pinned(true)
-            .template('<div class="input-group"><input type="text" ng-model="value" placeholder="Search" class="form-control"></input><span class="input-group-addon"><i class="fa fa-search"></i></span></div>'),
+            .template('<div class="input-group"><input type="text" ng-model="value" placeholder="Buscar" class="form-control"></input><span class="input-group-addon"><i class="fa fa-search"></i></span></div>'),
     ])
     .listActions(['edit', 'delete']);
 
     providers.creationView()
-        .title('Create a new Provider')
+        .title('Crear proveedor')
         .fields([
             nga.field('name')
+                .label('Nombre')
             ]);
 
     providers.editionView()
-        .title('{{ entry.values.name }}\'s details')
-        .fields([
-            nga.field('name')
-        ]);
+        .title('Editar {{ entry.values.name }}')
+        .fields(providers.creationView().fields());
 
     return providers;
 }

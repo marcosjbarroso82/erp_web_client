@@ -2,52 +2,60 @@ export default function (nga, admin) {
 
     var order_status_choices = [
         {
-            "label": "canceled",
+            "label": "Cancelada",
             "value": 0
         },
         {
-            "label": "pending",
+            "label": "Pendiente",
             "value": 1
         },
         {
-            "label": "completed",
+            "label": "Completada",
             "value": 2
         },
         {
-            "label": "delivered",
+            "label": "Entregada",
             "value": 3
         },
         {
-            "label": "paid",
+            "label": "Pagada",
             "value": 4
         }
     ];
 
     var orders = admin.getEntity('orders');
     orders.listView()
+      .title('Ordenes')
         .fields([
             nga.field('id'),
-            nga.field('status'),
-            nga.field('total', 'amount'),
+            nga.field('status', 'choice').choices(order_status_choices)
+              .label('Estado'),
+            nga.field('total', 'amount')
+              .label('Total'),
             nga.field('client', 'reference')
+              .label('Cliente')
                 .targetEntity(admin.getEntity('clients'))
                 .targetField(nga.field('first_name'))
                 .singleApiCall(ids => ({'id': ids }))
         ]).filters([
-        nga.field('status', 'choice').choices(order_status_choices),
+        nga.field('status', 'choice').choices(order_status_choices)
+          .label('Estado'),
         nga.field('client', 'reference')
-            .label('Client')
+            .label('Cliente')
             .targetEntity(admin.getEntity('clients'))
             .targetField(nga.field('first_name'))
     ])
 
-        .listActions(['edit', 'show']);
+        .listActions(['edit']);
     
     orders.creationView()
         .fields([
-            nga.field('status', 'choice').choices(order_status_choices),
-//            nga.field('total', 'float'),
+            nga.field('status', 'choice').choices(order_status_choices)
+              .label('Estado'),
+            nga.field('total', 'float')
+              .label('Total'),
             nga.field('client', 'reference')
+              .label('Cliente')
               .targetEntity(admin.getEntity('clients'))
               .targetField(nga.field('first_name'))
               .attributes({ placeholder: 'Select client...' })
@@ -58,11 +66,13 @@ export default function (nga, admin) {
 
             nga.field('items', 'embedded_list')
               .targetFields([ 
-                  nga.field('quantity', 'number'),
+                  nga.field('quantity', 'number')
+                    .label('Cantidad'),
                   nga.field('product', 'reference')
+                    .label('Producto')
                       .targetEntity(admin.getEntity('products'))
                       .targetField(nga.field('name'))
-                      .attributes({ placeholder: 'Select order...' })
+                      .attributes({ placeholder: 'Seleccione una orden...' })
                       .remoteComplete(true, {
                           refreshDelay: 300 ,
                           searchQuery: search => ({ q: search })
@@ -104,16 +114,21 @@ export default function (nga, admin) {
 
     orders.editionView().actions(['show', 'list'])
         .fields([
-            nga.field('status', 'choice').choices(order_status_choices),
+            nga.field('status', 'choice').choices(order_status_choices)
+              .label('Estado'),
             nga.field('client', 'reference')
+              .label('Cliente')
                 .editable(false)
                 .targetEntity(admin.getEntity('clients'))
                 .targetField(nga.field('first_name'))
                 .singleApiCall(ids => ({'id': ids })),
 
-            nga.field('total', 'amount').editable(false),
+            nga.field('total', 'amount')
+              .editable(false)
+              .label('Total'),
 
             nga.field('items', 'referenced_list').editable(false)
+              .label('Detalles')
                 .targetEntity(admin.getEntity('orderItems'))
                 .targetReferenceField('order')
                 .targetFields([
@@ -124,6 +139,7 @@ export default function (nga, admin) {
               ]).singleApiCall(ids => ({'id': ids })),
  
             nga.field('payments', 'referenced_list').editable(false)
+              .label('Pagos')
                 .targetEntity(admin.getEntity('payments'))
                 .targetReferenceField('order')
                 .targetFields([

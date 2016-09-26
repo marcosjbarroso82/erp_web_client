@@ -2,19 +2,19 @@ export default function (nga, admin) {
 
     var payment_types_choices = [
         {
-            "label": "cash",
+            "label": "Efectivo",
             "value": "cash"
         },
         {
-            "label": "cheque",
+            "label": "Cheque",
             "value": "cheque"
         },
         {
-            "label": "credit card",
+            "label": "Tarjeta de Credito",
             "value": "credit_card"
         },
         {
-            "label": "transfer",
+            "label": "Tranferencia",
             "value": "transfer"
         }
     ];
@@ -22,12 +22,17 @@ export default function (nga, admin) {
 
     var payments = admin.getEntity('payments');
     payments.listView()
+        .title('Pagos')
         .fields([
             nga.field('id'),
-            nga.field('amount'),
-            nga.field('date'),
-            nga.field('type'),
+            nga.field('amount')
+                .label('Monto'),
+            nga.field('date')
+                .label('Fecha'),
+            nga.field('type', 'choices').choices(payment_types_choices)
+                .label('Tipo'),
             nga.field('orders', 'reference')
+                .label('Orden')
                 .targetEntity(admin.getEntity('orders'))
                 .targetField(nga.field('id'))
                 .singleApiCall(ids => ({'id': ids }))
@@ -35,19 +40,27 @@ export default function (nga, admin) {
         .listActions(['edit', 'delete']);
 
     payments.creationView()
-        .title('Create new Payment')
+        .title('Crear pago')
         .fields([
-            nga.field('amount', 'amount').validation({required: true}),
-            nga.field('date', 'date'),
+            nga.field('amount', 'float')
+                .label('Monto')
+                .validation({required: true}),
+            nga.field('date', 'date')
+                .label('Fecha'),
             nga.field('type', 'choice').choices(payment_types_choices)
+                .label('Tipo')
 
         ]);
 
     payments.editionView()
         .fields([
-                nga.field('amount', 'amount').editable(false),
-            nga.field('date', 'date'),
+                nga.field('amount', 'amount')
+                    .label('Monto')
+                    .editable(false),
+            nga.field('date', 'date')
+                .label('Fecha'),
             nga.field('type', 'choice').choices(payment_types_choices)
+                .label('Tipo')
             ]);
 
     return payments;

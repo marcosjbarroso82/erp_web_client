@@ -4,9 +4,10 @@ export default function (nga, admin) {
     orderItems.listView()
         .fields([
             nga.field('id'),
-            nga.field('product_name'),
+            nga.field('product_name')
+              .label('Nombre de producto'),
             nga.field('order', 'reference')
-              .label('Order')
+              .label('Orden')
               .targetEntity(admin.getEntity('orders'))
               .targetField(nga.field('id'))
               .singleApiCall(ids => ({'id': ids }))

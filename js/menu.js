@@ -35,13 +35,13 @@ export default function (nga, admin) {
             //    .icon('<span class="fa fa-picture-o fa-fw"></span>'))
         )
 
-        .addChild(nga.menu()
+        .addChild(nga.menu(admin.getEntity('addresses'))
             .title('Direcciones')
             .icon('<span class="fa fa-location-arrow fa-fw"></span>')
             .active(path => path.indexOf('/addresses') === 0)
-            .addChild(nga.menu(admin.getEntity('addresses'))
-                .title('Direcciones')
-                .icon('<span class="fa fa-location-arrow fa-fw"></span>'))
+            //.addChild(nga.menu(admin.getEntity('addresses'))
+            //    .title('Direcciones')
+            //    .icon('<span class="fa fa-location-arrow fa-fw"></span>'))
         )
 
 
