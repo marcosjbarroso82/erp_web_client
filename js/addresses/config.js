@@ -2,10 +2,11 @@ export default function (nga, admin) {
 
     var addresses = admin.getEntity('addresses');
     addresses.listView()
-        .title('Addresses')
+        .title('Direcciones')
         .fields([
             nga.field('id'),
-            nga.field('street'),
+            nga.field('street')
+                .label('Direccion'),
         ]).filters([
         nga.field('q', 'template')
             .label('')
@@ -15,9 +16,10 @@ export default function (nga, admin) {
         .listActions(['edit', 'delete']);
 
         addresses.creationView()
-        .title('Create new Address')
+        .title('Crear direccion')
         .fields([
             nga.field('street')
+                .label('Direccion')
                 .validation({required: true }),
         ]);
 

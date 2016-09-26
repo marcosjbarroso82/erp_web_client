@@ -1,11 +1,13 @@
 export default function (nga, admin) {
     var productsStock = admin.getEntity('productsStock');
     productsStock.listView()
-        .title('Products stock')
+        .title('Stock de productos')
         .fields([
             nga.field('id'),
-            nga.field('quantity'),
+            nga.field('quantity')
+                .label('Cantidad'),
             nga.field('item', 'reference')
+                .label('Producto')
                 .targetEntity(admin.getEntity('products'))
                 .targetField(nga.field('name'))
                 .singleApiCall(ids => ({'id': ids }))
@@ -16,40 +18,45 @@ export default function (nga, admin) {
             .pinned(true)
             .template('<div class="input-group"><input type="text" ng-model="value" placeholder="Search" class="form-control"></input><span class="input-group-addon"><i class="fa fa-search"></i></span></div>'),
         nga.field('item', 'reference')
-            .label('Product')
+            .label('Producto')
             .targetEntity(admin.getEntity('products'))
             .targetField(nga.field('name')),   
     ])
     .listActions([
-        '<ma-filtered-list-button entity-name="IOProductsStock" filter="{ stock: entry.values.id }" size="xs" label="Details"></ma-filtered-list-button>',
-        '<ma-create-button entity-name="IOProductsStock" default-values="{ stock: entry.values.id }" size="xs" label="Add stock"></ma-create-button>',
+        '<ma-filtered-list-button entity-name="IOProductsStock" filter="{ stock: entry.values.id }" size="xs" label="Detalles"></ma-filtered-list-button>',
+        '<ma-create-button entity-name="IOProductsStock" default-values="{ stock: entry.values.id }" size="xs" label="Agregar stock"></ma-create-button>',
         'show'
         ]);
 
     productsStock.showView()
         .fields([
                 nga.field('id'),
-                nga.field('quantity'),
+                nga.field('quantity')
+                    .label('Cantidad'),
                 
                 nga.field('item', 'reference')
+                    .label('Producto')
                     .targetEntity(admin.getEntity('products'))
                     .targetField(nga.field('name'))
                     .singleApiCall(ids => ({'id': ids }))
                     .editable(false),
                 
                 nga.field('io_products_stock', 'referenced_list') // display list of related comments
-                      .targetEntity(admin.getEntity('IOProductsStock'))
-                      .targetReferenceField('stock')
-                      .targetFields([
-                          nga.field('id'),
-                          nga.field('quantity'),
-                          nga.field('note')
-                      ])
-                      .sortField('created_at')
-                      .sortDir('DESC'),
-                nga.field('Actions', 'template')
-                  .template(`<ma-filtered-list-button entity-name="IOProductsStock" filter="{ stock: entry.values.id }" size="xs" label="Details entries stock"></ma-filtered-list-button>
-                            <ma-create-button entity-name="IOProductsStock" default-values="{ stock: entry.values.id }" size="xs" label="Entry new stock product"></ma-create-button>`)
+                    .label('Detalles')
+                    .targetEntity(admin.getEntity('IOProductsStock'))
+                    .targetReferenceField('stock')
+                    .targetFields([
+                        nga.field('id'),
+                        nga.field('quantity')
+                            .label('Cantidad'),
+                        nga.field('note')
+                            .label('Nota')
+                    ])
+                    .sortField('created_at')
+                    .sortDir('DESC'),
+                nga.field('Acciones', 'template')
+                  .template(`<ma-filtered-list-button entity-name="IOProductsStock" filter="{ stock: entry.values.id }" size="xs" label="Ver detalles"></ma-filtered-list-button>
+                            <ma-create-button entity-name="IOProductsStock" default-values="{ stock: entry.values.id }" size="xs" label="Agregar stock"></ma-create-button>`)
 
             ])
 

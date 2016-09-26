@@ -143,3 +143,50 @@ myApp.config(['ngAdminJWTAuthConfiguratorProvider',
         })
     }
     ]);
+
+
+myApp.config(['$translateProvider', function ($translateProvider) {
+    $translateProvider.translations('es', {
+      'BACK': 'Atras',
+      'DELETE': 'Eliminar',
+      'CREATE': 'Crear',
+      'EDIT': 'Editar',
+      'EXPORT': 'Exportar',
+      'ADD_FILTER': 'Filtrar',
+      'SEE_RELATED': 'Ver {{ entityName }} asociados.',
+      'LIST': 'Lista',
+      'SHOW': 'Detalle',
+      'SAVE': 'Guardar',
+      'N_SELECTED': '{{ length }} seleccionados',
+      'ARE_YOU_SURE': 'Este cambio es permanente. ¿Puede confirmar?',
+      'YES': 'Si',
+      'NO': 'No',
+      'FILTER_VALUES': 'Filtros',
+      'CLOSE': 'Cerrar',
+      'CLEAR': 'Limpiar',
+      'CURRENT': 'Actual',
+      'REMOVE': 'Eliminar',
+      'ADD_NEW': 'Agregar un nuevo {{ name }}',
+      'BROWSE': 'Navegador',
+      'N_COMPLETE': '{{ progress }}% terminado',
+      'CREATE_NEW': 'Crear',
+      'SUBMIT': 'Enviar',
+      'SAVE_CHANGES': 'Guardar cambios',
+      'BATCH_DELETE_SUCCESS': 'Eliminacion registrada',
+      'DELETE_SUCCESS': 'Se elimino con exito.',
+      'ERROR_MESSAGE': 'Error en el servidor (codigo: {{ status }})',
+      'INVALID_FORM': 'Formulario invalido',
+      'CREATION_SUCCESS': 'Se creo con exito.',
+      'EDITION_SUCCESS': 'Se modifico con exito.',
+      'ACTIONS': 'Acciones',
+      'PAGINATION': '<strong>{{ begin }}</strong> - <strong>{{ end }}</strong> en <strong>{{ total }}</strong>',
+      'NO_PAGINATION': 'No hay resultados.',
+      'PREVIOUS': '« Anterior',
+      'NEXT': 'Siguiente »',
+      'DETAIL': 'Detalle',
+      'STATE_CHANGE_ERROR': 'Error de rutas: {{ message }}',
+      'NOT_FOUND': 'Página no encontrada',
+      'NOT_FOUND_DETAILS': 'La página solicitada no existe. Volver a la página anterior y probar algo diferente.',
+    });
+    $translateProvider.preferredLanguage('es');
+}]);
