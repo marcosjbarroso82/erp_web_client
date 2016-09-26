@@ -46,7 +46,7 @@ export default function (nga, admin) {
     orders.creationView()
         .fields([
             nga.field('status', 'choice').choices(order_status_choices),
-            nga.field('total', 'float'),
+//            nga.field('total', 'float'),
             nga.field('client', 'reference')
               .targetEntity(admin.getEntity('clients'))
               .targetField(nga.field('first_name'))
