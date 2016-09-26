@@ -2,15 +2,15 @@ export default function (nga, admin) {
 
     var delivery_status_choices = [
         {
-            "label": "canceled",
+            "label": "Cancelada",
             "value": 0
         },
         {
-            "label": "pending",
+            "label": "Pendiente",
             "value": 1
         },
         {
-            "label": "completed",
+            "label": "Completada",
             "value": 2
         }
     ];
@@ -29,7 +29,7 @@ export default function (nga, admin) {
                 .targetEntity(admin.getEntity('orders'))
                 .targetField(nga.field('id'))
                 .singleApiCall(ids => ({'id': ids})),
-            nga.field('status', 'text'),
+            nga.field('status', 'choice').choices(delivery_status_choices),
 
         ])
     .filters([
@@ -77,22 +77,15 @@ export default function (nga, admin) {
             nga.field('address', 'reference')
               .targetEntity(admin.getEntity('addresses'))
               .targetField(nga.field('street'))
-              .attributes({ placeholder: 'Select address...' })
-              .remoteComplete(true, {
-                  refreshDelay: 300 ,
-                  searchQuery: search => ({ q: search })
-              }),
+              .attributes({ placeholder: 'Select address...' }),
 
             nga.field('status', 'choice').choices(delivery_status_choices),
 
             nga.field('deliveries', 'reference_many')
               .targetEntity(admin.getEntity('deliveries'))
-              .targetField(nga.field('id'))
-              .attributes({ placeholder: 'Select some groups of items for delivery...' })
-              .remoteComplete(true, {
-                  refreshDelay: 300 ,
-                  searchQuery: search => ({ q: search })
-              })
+              .targetField(nga.field('id', 'template').template('<p>{{ entry.values.id }} - {{ entry.values.item.product_name }}: {{ entry.values.quantity }}<p>'))
+              .attributes({ placeholder: 'Selecciona paquetes para el envio...' })
+              
         );
 
     return delivery_groups;

@@ -2,15 +2,15 @@ export default function (nga, admin) {
 
     var delivery_status_choices = [
         {
-            "label": "canceled",
+            "label": "Cancelado",
             "value": 0
         },
         {
-            "label": "pending",
+            "label": "Pendiente",
             "value": 1
         },
         {
-            "label": "completed",
+            "label": "Completado",
             "value": 2
         }
     ];
@@ -27,7 +27,7 @@ export default function (nga, admin) {
                 .targetEntity(admin.getEntity('orderItems'))
                 .targetField(nga.field('product_name'))
                 .singleApiCall(ids => ({'id': ids})),
-            nga.field('status', 'text'),
+            nga.field('status', 'choice').choices(delivery_status_choices),
             nga.field('distribution', 'reference')
                 .targetEntity(admin.getEntity('distributions'))
                 .targetField(nga.field('id'))

@@ -26,7 +26,7 @@ export default function (nga, admin) {
             ]);
 
     clients.editionView()
-        .title('{{ entry.values.first_name }}\'s details')
+        .title('Editando a {{ entry.values.first_name }}')
         .fields([
             nga.field('first_name')
                 .label('Nombre'),

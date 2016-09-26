@@ -35,10 +35,8 @@ export default function (nga, admin) {
             nga.field('sku')
                 .label('SKU')
                 .validation({required: true }),
-            nga.field('price', 'float')
-                .format(function(value){
-                    return Decimal(value);
-                })
+            nga.field('price', 'number')
+                .format('0.00')
                 .label('Precio')
                 .validation({required: true}),
             nga.field('description', 'wysiwyg')
@@ -46,6 +44,7 @@ export default function (nga, admin) {
         ]);
 
     products.editionView()
+        .title('Editar {{ entry.values.name }}')
         .fields(
             products.creationView().fields(),
     );
