@@ -1,4 +1,4 @@
-var endpoint = 'http://erp.context.com.ar/';
+var endpoint = 'http://erp.context.com.ar/api/v1/';
 
 var myApp = angular.module('myApp', [
     'ng-admin',
