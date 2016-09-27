@@ -46,7 +46,7 @@ export default function (nga, admin) {
             .targetField(nga.field('first_name'))
     ])
 
-        .listActions(['edit']);
+        .listActions([`<ma-create-button entity-name="payments" default-values="{ order: entry.values.id }" size="xs" label="Agregar pago"></ma-create-button>`]);
     
     orders.creationView()
         .fields([

@@ -7,7 +7,7 @@ export default function (nga, admin) {
         },
         {
             "label": "Cheque",
-            "value": "cheque"
+            "value": "check"
         },
         {
             "label": "Tarjeta de Credito",
@@ -29,7 +29,7 @@ export default function (nga, admin) {
                 .label('Monto'),
             nga.field('date')
                 .label('Fecha'),
-            nga.field('type', 'choices').choices(payment_types_choices)
+            nga.field('type', 'choice').choices(payment_types_choices)
                 .label('Tipo'),
             nga.field('orders', 'reference')
                 .label('Orden')
@@ -45,23 +45,16 @@ export default function (nga, admin) {
             nga.field('amount', 'float')
                 .label('Monto')
                 .validation({required: true}),
-            nga.field('date', 'date')
+            nga.field('date', 'datetime')
                 .label('Fecha'),
             nga.field('type', 'choice').choices(payment_types_choices)
-                .label('Tipo')
+                .label('Tipo'),
+            nga.field('order', 'reference')
+                .targetEntity(admin.getEntity('orders'))
+                .targetField(nga.field('id'))
+                .singleApiCall(ids => ({'id': ids }))
 
         ]);
-
-    payments.editionView()
-        .fields([
-                nga.field('amount', 'amount')
-                    .label('Monto')
-                    .editable(false),
-            nga.field('date', 'date')
-                .label('Fecha'),
-            nga.field('type', 'choice').choices(payment_types_choices)
-                .label('Tipo')
-            ]);
 
     return payments;
 }

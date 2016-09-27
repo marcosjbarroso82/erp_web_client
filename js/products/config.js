@@ -11,6 +11,8 @@ export default function (nga, admin) {
                 .label('Nombre'),
             nga.field('price', 'amount')
                 .label('Precio'),
+            nga.field('stock_quantity', 'number')
+                .label('Stock')
         ]).filters([
         nga.field('search', 'template')
             .label('')
@@ -24,7 +26,7 @@ export default function (nga, admin) {
             .label('Stock menor a')
             .defaultValue(10)
     ])
-        .listActions(['edit', 'delete'])
+        .listActions([])
     ;
     products.creationView()
         .title('Crear producto')

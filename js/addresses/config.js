@@ -24,6 +24,7 @@ export default function (nga, admin) {
         ]);
 
     addresses.editionView()
+        .title('Editar direccion')
         .fields(
             addresses.creationView().fields(),
     );

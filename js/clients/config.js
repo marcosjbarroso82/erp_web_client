@@ -1,7 +1,7 @@
 export default function (nga, admin) {
     var clients = admin.getEntity('clients');
     clients.listView()
-        .title('Clients')
+        .title('Clientes')
         .fields([
             nga.field('id'),
             nga.field('first_name')

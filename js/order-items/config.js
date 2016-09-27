@@ -37,8 +37,8 @@ export default function (nga, admin) {
                   searchQuery: search => ({ q: search })
               }),
         ]);
-    orderItems.editionView()
-        .fields(orderItems.creationView().fields());
+    //orderItems.editionView()
+    //    .fields(orderItems.creationView().fields());
 
     return orderItems;
 }

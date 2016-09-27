@@ -18,44 +18,49 @@ export default function (nga, admin) {
 
     var delivery_groups = admin.getEntity('deliveryGroups');
     delivery_groups.listView()
-        .title('Delivery Groups')
+        .title('Entregas')
         .fields([
             nga.field('id'),
              nga.field('address', 'reference')
+              .label('Direccion')
                 .targetEntity(admin.getEntity('addresses'))
                 .targetField(nga.field('street'))
                 .singleApiCall(ids => ({'id': ids})),
             nga.field('order', 'reference')
+              .label('Orden')
                 .targetEntity(admin.getEntity('orders'))
                 .targetField(nga.field('id'))
                 .singleApiCall(ids => ({'id': ids})),
-            nga.field('status', 'choice').choices(delivery_status_choices),
+            nga.field('status', 'choice').choices(delivery_status_choices)
+              .label('Estado'),
 
         ])
     .filters([
         nga.field('search', 'template')
             .label('')
             .pinned(true)
-            .template('<div class="input-group"><input type="text" ng-model="value" placeholder="Search" class="form-control"></input><span class="input-group-addon"><i class="fa fa-search"></i></span></div>'),
+            .template('<div class="input-group"><input type="text" ng-model="value" placeholder="Buscar" class="form-control"></input><span class="input-group-addon"><i class="fa fa-search"></i></span></div>'),
     ])
     .listActions(['edit', 'delete']);
 
     delivery_groups.creationView()
-        .title('Create a new Delivery Group')
+        .title('Crear una entrega')
         .fields([
             nga.field('order', 'reference')
+              .label('Orden')
               .targetEntity(admin.getEntity('orders'))
               .targetField(nga.field('id'))
-              .attributes({ placeholder: 'Select order...' })
+              .attributes({ placeholder: 'Seleccionar orden...' })
               .remoteComplete(true, {
                   refreshDelay: 300 ,
                   searchQuery: search => ({ q: search })
               }),
 
             nga.field('address', 'reference')
+              .label('Direccion')
               .targetEntity(admin.getEntity('addresses'))
               .targetField(nga.field('street'))
-              .attributes({ placeholder: 'Select address...' })
+              .attributes({ placeholder: 'Seleccionar direccion...' })
               .remoteComplete(true, {
                   refreshDelay: 300 ,
                   searchQuery: search => ({ q: search })
@@ -70,7 +75,7 @@ export default function (nga, admin) {
               .label('Orden')
               .targetEntity(admin.getEntity('orders'))
               .targetField(nga.field('id'))
-              .attributes({ placeholder: 'Seleciona una orden...' })
+              .attributes({ placeholder: 'Selecionar orden...' })
               .remoteComplete(true, {
                   refreshDelay: 300 ,
                   searchQuery: search => ({ q: search })
@@ -79,14 +84,16 @@ export default function (nga, admin) {
               .label('Direccion')
               .targetEntity(admin.getEntity('addresses'))
               .targetField(nga.field('street'))
-              .attributes({ placeholder: 'Selecciona una direccion...' }),
+              .attributes({ placeholder: 'Seleccionar direccion...' }),
 
-            nga.field('status', 'choice').choices(delivery_status_choices),
+            nga.field('status', 'choice').choices(delivery_status_choices)
+              .label('Estado'),
 
             nga.field('deliveries', 'reference_many')
+              .label('Paquetes')
               .targetEntity(admin.getEntity('deliveries'))
               .targetField(nga.field('id', 'template').template('<p>111<p>'))
-              .attributes({ placeholder: 'Selecciona paquetes para el envio...' })
+              .attributes({ placeholder: 'Seleccionar paquetes para el envio...' })
               
         );
 

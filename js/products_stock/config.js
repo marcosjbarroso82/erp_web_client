@@ -6,6 +6,8 @@ export default function (nga, admin) {
             nga.field('id'),
             nga.field('quantity')
                 .label('Cantidad'),
+            nga.field('reserved_stock')
+                .label('Stock comprometido'),
             nga.field('item', 'reference')
                 .label('Producto')
                 .targetEntity(admin.getEntity('products'))
@@ -23,12 +25,11 @@ export default function (nga, admin) {
             .targetField(nga.field('name')),   
     ])
     .listActions([
-        '<ma-filtered-list-button entity-name="IOProductsStock" filter="{ stock: entry.values.id }" size="xs" label="Detalles"></ma-filtered-list-button>',
         '<ma-create-button entity-name="IOProductsStock" default-values="{ stock: entry.values.id }" size="xs" label="Agregar stock"></ma-create-button>',
-        'show'
         ]);
 
     productsStock.showView()
+        .title('Stock de {{ entry.values.product_name }}')
         .fields([
                 nga.field('id'),
                 nga.field('quantity')
@@ -55,8 +56,8 @@ export default function (nga, admin) {
                     .sortField('created_at')
                     .sortDir('DESC'),
                 nga.field('Acciones', 'template')
-                  .template(`<ma-filtered-list-button entity-name="IOProductsStock" filter="{ stock: entry.values.id }" size="xs" label="Ver detalles"></ma-filtered-list-button>
-                            <ma-create-button entity-name="IOProductsStock" default-values="{ stock: entry.values.id }" size="xs" label="Agregar stock"></ma-create-button>`)
+                  .template(`<ma-create-button entity-name="IOProductsStock" default-values="{ stock: entry.values.id }" size="xs" label="Agregar stock"></ma-create-button>
+                    <ma-filtered-list-button entity-name="IOProductsStock" filter="{ stock: entry.values.id }" size="xs" label="Ver detalles"></ma-filtered-list-button>`)
 
             ])
 

@@ -6,7 +6,31 @@
 }
 
 .navbar-right > li > a {
-    padding-top: 15px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+#wrapper .navbar-static-top .navbar-right{
+	margin-right: 0px;
+
+
+}
+
+#wrapper .navbar-static-top .navbar-header .navbar-brand{
+	margin-top: 5px;
+}
+
+#wrapper .navbar-static-top .navbar-form{
+		margin-top: 12px;
+		margin-bottom: 12px;
+	}
+
+#wrapper .navbar-static-top .navbar-form .btn.btn-default.dropdown-toggle{
+    height: 34px;
+    }
+
+#header-nav .container-fluid{
+	padding: 0px;
 }
 
 table.items > tbody > tr > td {
