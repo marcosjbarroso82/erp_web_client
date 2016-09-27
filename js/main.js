@@ -1,4 +1,4 @@
-var endpoint = 'http://127.0.0.1:8000/api/v1/';
+var endpoint = 'http://erp.context.com.ar/';
 
 var myApp = angular.module('myApp', [
     'ng-admin',
@@ -132,7 +132,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
 
 myApp.config(['ngAdminJWTAuthConfiguratorProvider',
     function (ngAdminJWTAuthConfigurator) {
-        ngAdminJWTAuthConfigurator.setJWTAuthURL('http://127.0.0.1:8000/api/v1/api-token-auth');
+        ngAdminJWTAuthConfigurator.setJWTAuthURL(endpoint + 'api-token-auth');
         ngAdminJWTAuthConfigurator.setCustomAuthHeader({
             name: 'Authorization',
             template: 'JWT {{token}}'
