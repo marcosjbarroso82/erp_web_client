@@ -16,7 +16,7 @@ export default function (nga, admin) {
         .permanentFilters({stock_lte: 10})
         .sortDir('DESC')
     )
-    .addCollection(nga.collection(admin.getEntity('products'))
+    .addCollection(nga.collection(admin.getEntity('productsVariants'))
         .name('products_low_stock')
         .title('Productos con bajo stock')
         .fields([

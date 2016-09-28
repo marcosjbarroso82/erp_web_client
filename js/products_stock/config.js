@@ -10,7 +10,7 @@ export default function (nga, admin) {
                 .label('Stock comprometido'),
             nga.field('item', 'reference')
                 .label('Producto')
-                .targetEntity(admin.getEntity('products'))
+                .targetEntity(admin.getEntity('productsVariants'))
                 .targetField(nga.field('name'))
                 .singleApiCall(ids => ({'id': ids }))
         ])
@@ -21,7 +21,7 @@ export default function (nga, admin) {
             .template('<div class="input-group"><input type="text" ng-model="value" placeholder="Search" class="form-control"></input><span class="input-group-addon"><i class="fa fa-search"></i></span></div>'),
         nga.field('item', 'reference')
             .label('Producto')
-            .targetEntity(admin.getEntity('products'))
+            .targetEntity(admin.getEntity('productsVariants'))
             .targetField(nga.field('name')),   
     ])
     .listActions([
@@ -37,7 +37,7 @@ export default function (nga, admin) {
                 
                 nga.field('item', 'reference')
                     .label('Producto')
-                    .targetEntity(admin.getEntity('products'))
+                    .targetEntity(admin.getEntity('productsVariants'))
                     .targetField(nga.field('name'))
                     .singleApiCall(ids => ({'id': ids }))
                     .editable(false),

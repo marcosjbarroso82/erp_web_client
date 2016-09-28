@@ -1,7 +1,7 @@
 {
-  "name": "ng-admin-demo",
+  "name": "erp-client",
   "version": "0.0.2",
-  "description": "A ng-admin demo on e-commerce domain",
+  "description": "A ERP client based on ng admin",
   "main": "index.html",
   "repository": {
     "type": "git",
@@ -32,6 +32,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "François Zaninotto",
+  "author": "Context Informatic",
   "license": "MIT"
 }

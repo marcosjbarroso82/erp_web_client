@@ -1,9 +1,8 @@
-var endpoint = 'http://erp.context.com.ar/api/v1/';
+var endpoint = 'http://127.0.0.1:8000/api/v1/';
 
 var myApp = angular.module('myApp', [
     'ng-admin',
-    'ng-admin.jwt-auth',
-    //'cart',
+    'ng-admin.jwt-auth'
 ]);
 
 // custom API flavor
@@ -22,14 +21,6 @@ myApp.config(['NgAdminConfigurationProvider', 'FieldViewConfigurationProvider', 
 // custom directives
 myApp.directive('dashboardSummary', require('./dashboard/dashboardSummary'));
 
-// custom controllers
-myApp.controller('username', ['$scope', '$window', function($scope, $window) { // used in header.html
-    $scope.username =  $window.localStorage.getItem('posters_galore_login');
-}]);
-
-function fix_url(url){
-
-}
 
 myApp.config(['NgAdminConfigurationProvider', function (nga) {
     // create the admin application
@@ -58,6 +49,17 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
     admin.addEntity(nga.entity('providers'));
     
     admin.addEntity(nga.entity('products'));
+    admin.addEntity(nga.entity('productsVariants').url(function(entityName, viewType, identifierValue, identifierName) {
+        var url = 'products-variants';
+        return (identifierValue != undefined) ? url + '/' + identifierValue : url;
+    }));
+    admin.addEntity(nga.entity('productsImages').url(function(entityName, viewType, identifierValue, identifierName) {
+        var url = 'products-images';
+        return (identifierValue != undefined) ? url + '/' + identifierValue : url;
+    }));
+
+    admin.addEntity(nga.entity('categories'));
+
     admin.addEntity(nga.entity('productsStock').url(function(entityName, viewType, identifierValue, identifierName) {
         var url = 'products-stock';
         return (identifierValue != undefined) ? url + '/' + identifierValue : url;
@@ -96,6 +98,8 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
     require('./providers/config')(nga, admin);
 
     require('./products/config')(nga, admin);
+    require('./products-variants/config')(nga, admin);
+    require('./categories/config')(nga, admin);
     require('./products_stock/config')(nga, admin);
     require('./io_products_stock/config')(nga, admin);
 
@@ -118,14 +122,7 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
 
 myApp.config(function ($stateProvider, $urlRouterProvider) {
 
-   $stateProvider.state('cart', {
-        parent: 'main',
-        url: '/cart',
-//        params: { id: null },
-        controller: 'CartCtrl',
-        controllerAs: 'vm',
-        templateUrl: '/js/cart/templates/cart.html'
-    });
+   
     $urlRouterProvider.otherwise('/login');
 });
 

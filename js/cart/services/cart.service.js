@@ -8,7 +8,7 @@
     Cart.$inject = ['$http'];
 
     function Cart($http) {
-        var base_url = 'http://127.0.0.1:8000'
+        var base_url = 'http://127.0.0.1:8000/api/v1/'
         var Cart = {
 			get: get,
 			update_cart: update_cart,
@@ -22,7 +22,7 @@
 
             var req = {
              method: 'GET',
-             url: base_url + '/api/v1/new-cart',
+             url: base_url + 'new-cart',
              headers: {
                'Authorization': 'JWT ' + token
              }
@@ -38,7 +38,7 @@
 
             var req = {
              method: 'POST',
-             url: base_url + '/api/v1/new-cart',
+             url: base_url + 'new-cart',
              headers: {
                'Authorization': 'JWT ' + token
              },
@@ -54,7 +54,7 @@
             var token = window.localStorage.getItem('userToken');
             var req = {
              method: 'GET',
-             url: base_url + '/api/v1/products',
+             url: base_url + 'products',
              headers: {
                'Authorization': 'JWT ' + token
              }

@@ -4,8 +4,7 @@
     angular
         .module('cart', [
             'cart.controllers',
-            'cart.services',
-            'ui.bootstrap'
+            'cart.services'
         ]);
 
     angular

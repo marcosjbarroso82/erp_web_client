@@ -70,7 +70,7 @@ export default function (nga, admin) {
                     .label('Cantidad'),
                   nga.field('product', 'reference')
                     .label('Producto')
-                      .targetEntity(admin.getEntity('products'))
+                      .targetEntity(admin.getEntity('productsVariants'))
                       .targetField(nga.field('name'))
                       .attributes({ placeholder: 'Seleccione una orden...' })
                       .remoteComplete(true, {

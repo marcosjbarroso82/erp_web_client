@@ -4,10 +4,18 @@ export default function (nga, admin) {
         .addChild(nga.menu()
             .title('Productos')
             .icon('<span class="fa fa-product-hunt fa-fw"></span>')
-            .active(path => path.indexOf('/products') === 0 || path.indexOf('/productsStock') === 0)
+            .active(path => path.indexOf('/products') === 0 || path.indexOf('/productsStock') === 0 || path.indexOf('/categories') === 0)
             
+            .addChild(nga.menu(admin.getEntity('categories'))
+                .title('Categorias')
+                .icon('<span class="fa fa-bars fa-fw"></span>'))
+
             .addChild(nga.menu(admin.getEntity('products'))
                 .title('Productos')
+                .icon('<span class="fa fa-product-hunt fa-fw"></span>'))
+
+            .addChild(nga.menu(admin.getEntity('productsVariants'))
+                .title('Variaciones de productos')
                 .icon('<span class="fa fa-product-hunt fa-fw"></span>'))
 
             .addChild(nga.menu(admin.getEntity('productsStock'))

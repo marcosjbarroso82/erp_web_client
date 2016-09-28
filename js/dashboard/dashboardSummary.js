@@ -17,7 +17,7 @@ function dashboardSummary(Restangular) {
                 $scope.has_seen_alert = true;
             };
             Restangular
-                .all('products')
+                .all('productsVariants')
                 .getList({stock_lte: 10})
                 .then(products => {
                     $scope.stats.products_low_stock = products.data.reduce(nb => ++nb, 0)

@@ -20,7 +20,7 @@ export default function (nga, admin) {
             nga.field('price', 'float').editable(false),
             nga.field('quantity', 'number'),
             nga.field('product', 'reference')
-              .targetEntity(admin.getEntity('products'))
+              .targetEntity(admin.getEntity('productsVariants'))
               .targetField(nga.field('name'))
               .attributes({ placeholder: 'Select order...' })
               .remoteComplete(true, {

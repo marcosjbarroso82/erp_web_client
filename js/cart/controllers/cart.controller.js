@@ -16,7 +16,6 @@
         vm.cart = {};
         vm.variants = [];
         vm.temp_extra_item = {};
-        vm.alerts = [];
         vm.extra_item = {};
 
         // Initialize Controller
@@ -47,7 +46,6 @@
         }
 
         vm.addItem = function(){
-            vm.alerts = [];
             vm.extra_item.data = {};
 
             if(vm.extra_item.product && vm.extra_item.quantity) {
@@ -58,11 +56,10 @@
                 Cart.update_cart(temp_cart).then(function (data){
                     vm.cart = data['data'];
                     vm.temp_extra_item = {};
-                    vm.alerts.push({type: 'success', msg: 'Item Agregado!'});
+                    notification.log('Item Agregado!', { addnCls: 'humane-flatty-success' });
 
                     vm.cart['items'].forEach(function(item) {
                         if(item['msg'] != '') {
-                            vm.alerts.push({msg: item['msg']});
                             notification.log(item['msg'], { addnCls: 'humane-flatty-error' });
                         }
                     });
@@ -74,12 +71,11 @@
         }
 
         vm.removeItem = function(index){
-            vm.alerts = [];
             var temp_cart = angular.copy(vm.cart)
             temp_cart.items[index]['quantity'] = 0;
 
             Cart.update_cart(temp_cart).then(function (data){
-                vm.alerts.push({type: 'success', msg: 'Producto borrado!'});
+                notification.log('Producto borrado!', { addnCls: 'humane-flatty-success' });
                 vm.cart = data['data'];
                 vm.extra_item = {};
             }, function (data){
@@ -87,9 +83,6 @@
             });
         }
 
-        vm.closeAlert = function(index) {
-            vm.alerts.splice(index, 1);
-        };
 
     }
 })();

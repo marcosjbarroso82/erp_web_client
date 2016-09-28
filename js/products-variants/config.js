@@ -1,10 +1,10 @@
 
 export default function (nga, admin) {
 
-    var products = admin.getEntity('products')
-        .label('Productos');
-    products.listView()
-        .title('Productos')
+    var productsVariants = admin.getEntity('productsVariants')
+        .label('Variaciones de Productos');
+    productsVariants.listView()
+        .title('Variaciones de Productos')
         .fields([
             nga.field('id', 'number'),
             nga.field('name', 'text')
@@ -18,41 +18,44 @@ export default function (nga, admin) {
             .label('')
             .pinned(true)
             .template('<div class="input-group"><input type="text" ng-model="value" placeholder="Buscar" class="form-control"></input><span class="input-group-addon"><i class="fa fa-search"></i></span></div>'),
+        nga.field('price_gte', 'float')
+            .label('Precio menor a'),
+        nga.field('price_lte', 'float')
+            .label('Precio mayor a'),
+        nga.field('stock_lte', 'number')
+            .label('Stock menor a')
+            .defaultValue(10),
         nga.field('category', 'reference')
             .label('Categoria')
             .targetEntity(admin.getEntity('categories'))
             .targetField(nga.field('name'))
     ]);
-
-    products.creationView()
-        .title('Crear producto')
+    productsVariants.creationView()
+        .title('Crear variacion de producto')
         .fields([
             nga.field('name')
                 .label('Nombre')
                 .validation({required: true }),
-            nga.field('category', 'reference')
-                .targetEntity(admin.getEntity('categories'))
+            nga.field('sku')
+                .label('SKU')
+                .validation({required: true }),
+            nga.field('product', 'reference')
+                .targetEntity(admin.getEntity('products'))
                 .targetField(nga.field('name')),
             nga.field('price', 'float')
                 .label('Precio')
                 .map(function truncate(value, entry) {
+                    //return parseFloat(value).toFixed(2);
                     return parseFloat(value);
                 })
-                .validation({required: true}),
-            nga.field('description', 'wysiwyg')
-                .label('Descripcion')
+                .validation({required: true})
         ]);
 
-    products.editionView()
+    productsVariants.editionView()
         .title('Editar {{ entry.values.name }}')
         .fields(
-            products.creationView().fields(),
-            nga.field('images', 'embedded_list')
-              .targetFields([ 
-                  nga.field('image', 'file')
-                    .label('Imagen'),
-              ])
+            productsVariants.creationView().fields(),
     );
 
-    return products;
+    return productsVariants;
 }
