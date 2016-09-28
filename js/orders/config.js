@@ -2,7 +2,7 @@ export default function (nga, admin) {
 
     var order_status_choices = [
         {
-            "label": "Cancelada",
+            "label": "Completada",
             "value": 0
         },
         {
@@ -10,16 +10,12 @@ export default function (nga, admin) {
             "value": 1
         },
         {
-            "label": "Completada",
+            "label": "Cancelada",
             "value": 2
         },
         {
-            "label": "Entregada",
+            "label": "issued",
             "value": 3
-        },
-        {
-            "label": "Pagada",
-            "value": 4
         }
     ];
 
@@ -28,7 +24,7 @@ export default function (nga, admin) {
       .title('Ordenes')
         .fields([
             nga.field('id'),
-            nga.field('status', 'choice').choices(order_status_choices)
+            nga.field('_status', 'choice').choices(order_status_choices)
               .label('Estado'),
             nga.field('total', 'amount')
               .label('Total'),
@@ -38,7 +34,7 @@ export default function (nga, admin) {
                 .targetField(nga.field('first_name'))
                 .singleApiCall(ids => ({'id': ids }))
         ]).filters([
-        nga.field('status', 'choice').choices(order_status_choices)
+        nga.field('_status', 'choice').choices(order_status_choices)
           .label('Estado'),
         nga.field('client', 'reference')
             .label('Cliente')
@@ -52,8 +48,8 @@ export default function (nga, admin) {
         .fields([
             nga.field('status', 'choice').choices(order_status_choices)
               .label('Estado'),
-            nga.field('total', 'float')
-              .label('Total'),
+//            nga.field('total', 'float')
+//              .label('Total'),
             nga.field('client', 'reference')
               .label('Cliente')
               .targetEntity(admin.getEntity('clients'))

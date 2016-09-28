@@ -12,7 +12,11 @@ export default function (nga, admin) {
             nga.field('price', 'amount')
                 .label('Precio'),
             nga.field('stock_quantity', 'number')
-                .label('Stock')
+                .label('Stock'),
+            nga.field('reserved_stock_quantity', 'number')
+                .label('Stock Reservado'),
+            nga.field('available_stock_quantity', 'number')
+                .label('Stock Disponible')
         ]).filters([
         nga.field('search', 'template')
             .label('')
