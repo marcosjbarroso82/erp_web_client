@@ -12,14 +12,17 @@ export default function (nga, admin) {
         {
             "label": "Completada",
             "value": 2
+        }
+    ];
+
+    var order_status_choices_create = [
+        {
+            "label": "Pendiente",
+            "value": 1
         },
         {
-            "label": "Entregada",
-            "value": 3
-        },
-        {
-            "label": "Pagada",
-            "value": 4
+            "label": "Completada",
+            "value": 2
         }
     ];
 
@@ -50,10 +53,9 @@ export default function (nga, admin) {
     
     orders.creationView()
         .fields([
-            nga.field('status', 'choice').choices(order_status_choices)
+            nga.field('status', 'choice').choices(order_status_choices_create)
+              .defaultValue(1)
               .label('Estado'),
-            nga.field('total', 'float')
-              .label('Total'),
             nga.field('client', 'reference')
               .label('Cliente')
               .targetEntity(admin.getEntity('clients'))

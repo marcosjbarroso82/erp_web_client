@@ -46,6 +46,7 @@ export default function (nga, admin) {
                 .label('Monto')
                 .validation({required: true}),
             nga.field('date', 'datetime')
+                .defaultValue(new Date(Date.now()))
                 .label('Fecha'),
             nga.field('type', 'choice').choices(payment_types_choices)
                 .label('Tipo'),

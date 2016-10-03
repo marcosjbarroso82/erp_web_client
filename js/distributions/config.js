@@ -25,6 +25,7 @@ export default function (nga, admin) {
         .title('Create nuevo reparto')
         .fields([
             nga.field('date', 'datetime')
+              .defaultValue(new Date(Date.now()))
               .label('Fecha'),
             nga.field('employee', 'reference')
               .label('Empleado')

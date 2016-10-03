@@ -92,7 +92,7 @@ export default function (nga, admin) {
             nga.field('deliveries', 'reference_many')
               .label('Paquetes')
               .targetEntity(admin.getEntity('deliveries'))
-              .targetField(nga.field('id'))
+              .targetField(nga.field('id').map((v, e) => 'Item #' + e.item + ' : ' + e.quantity))
               .attributes({ placeholder: 'Seleccionar paquetes para el envio...' })
               
         );

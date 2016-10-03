@@ -31,6 +31,7 @@ export default function (nga, admin) {
             nga.field('quantity', 'number')
                 .label('Cantidad'),
             nga.field('date', 'datetime')
+                .defaultValue(new Date(Date.now()))
                 .label('Fecha'),
             nga.field('stock', 'reference')
               .targetEntity(admin.getEntity('resourcesStock'))
