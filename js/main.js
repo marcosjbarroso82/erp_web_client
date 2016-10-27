@@ -1,14 +1,19 @@
 var endpoint = 'http://127.0.0.1:8000/api/v1/';
+window.endpoint = endpoint;
 
 var myApp = angular.module('myApp', [
     'ng-admin',
-    'ng-admin.jwt-auth'
+    'ng-admin.jwt-auth',
+    'ngDialog',
+    'util'
 ]);
 
 // custom API flavor
 var apiFlavor = require('./api_flavor');
 myApp.config(['RestangularProvider', apiFlavor.requestInterceptor]);
 //myApp.config(['RestangularProvider', apiFlavor.responseInterceptor]);
+
+
 
 
 
@@ -187,3 +192,14 @@ myApp.config(['$translateProvider', function ($translateProvider) {
     });
     $translateProvider.preferredLanguage('es');
 }]);
+
+// require('../ngDialog/js/ngDialog');
+
+// require('./utils/util.module');
+// require('./utils/services/upload-multiple-images.service');
+
+// require('./utils/controllers/upload-multiple-images.controller');
+
+// require('./utils/directives/image-onload.directive');
+// require('./utils/directives/upload-file-client.directive');
+// require('./utils/directives/upload-multiple-image.directive');

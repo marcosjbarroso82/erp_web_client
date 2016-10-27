@@ -48,31 +48,11 @@ export default function (nga, admin) {
         .title('Editar {{ entry.values.name }}')
         .fields(
             products.creationView().fields(),
-            nga.field('images', 'embedded_list')
-              .targetFields([ 
-                  nga.field('display_image', 'template')
-                    .template(`<img ng-if="entry.values.image" ng-src="{{ entry.values.image }}" width="50" style="margin-top:-5px" />`)
-                    .editable(false),
-                  nga.field('image', 'file')
-                    .uploadInformation({
-                            url: ('http://127.0.0.1:8000/api/v1/products-images'),
-                            method: 'POST',
-                            data: 2
-                            //data: products.editionView().entity.datastorage.id,
-                            //apifilename: 'image',
-                            //*data: {'product': 2},
-                            //fileName: 'image',
-                            //name: 'image',
-                            //objectKey: 'image',
-                            //product: 2,
-                            //pic: 'image'
-
-                            /*then: (function(resp) {
-                                console.log("ANDA!");
-                            })*/
-                    })
-                    .label('Imagen'),
-              ])
+            nga.field('display_image', 'template')
+                .label('Images')
+                .template(`<upload-images  uploaded-images="{{ entry.values.images }}" files-model="images" item-id="{{ entry.values.id }}"></upload-images>`)
+                .editable(false),
+            
     );
 
     return products;

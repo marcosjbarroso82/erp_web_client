@@ -6,6 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" type="text/css" href="build/main.css"/>
+        
+        <link rel="stylesheet" href="ngDialog/css/ngDialog-theme-plain.css">
+        <link rel="stylesheet" href="ngDialog/css/ngDialog.css">
+
         <!--<link rel="stylesheet" href="css/bootstrap/dist/css/bootstrap.css">-->
         <!--<link rel="stylesheet" href="http://bootswatch.com/sandstone/bootstrap.min.css">-->
         <!--<link rel="stylesheet" href="http://bootswatch.com/simplex/bootstrap.min.css">-->
@@ -17,7 +21,7 @@
 
     </head>
     <body ng-app="myApp">
-        <div ui-view></div>
+        <div ui-view="ng-admin"></div>
         <script type="text/javascript">
 
         function logout() {
@@ -29,16 +33,23 @@
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
         <script src="css/bootstrap/dist/js/bootstrap.min.js"></script>
 
-        <!--<script type="text/javascript" src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js" charset="utf-8"></script>-->
-        <!--<script type="text/javascript" src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js" charset="utf-8"></script>-->
-        <!--<link rel="stylesheet" href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css"/>-->
-
-
-
 
         <script type="text/javascript" src="build/ng-admin.min.js" charset="utf-8"></script>
 
         <script type="text/javascript" src="ng-admin-jwt-auth/build/ng-admin.jwt-auth.min.js"></script>
+
+
+        <script type="text/javascript" src="ngDialog/js/ngDialog.js"></script>
+
+        <script type="text/javascript" src="js/utils/util.module.js"></script>
+        <script type="text/javascript" src="js/utils/services/upload-multiple-images.service.js"></script>
+
+        <script type="text/javascript" src="js/utils/controllers/upload-multiple-images.controller.js"></script>
+
+        <script type="text/javascript" src="js/utils/directives/upload-file-client.directive.js"></script>
+        <script type="text/javascript" src="js/utils/directives/upload-multiple-image.directive.js"></script>
+
+
         <!--<script type="text/javascript" src="js/cart/cart.module.js" charset="utf-8"></script>
         <script type="text/javascript" src="js/cart/services/cart.service.js" charset="utf-8"></script>
         <script type="text/javascript" src="js/cart/controllers/cart.controller.js" charset="utf-8"></script>
